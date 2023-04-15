@@ -11,6 +11,10 @@
 |
 */
 
+if (App::environment('production')) {
+    URL::forceScheme('https');
+}
+
 // =================================== HOME ROUTE =================================== //
 require __DIR__.'/client/home.php';
 

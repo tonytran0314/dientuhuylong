@@ -43,7 +43,7 @@
 							<div class="header-logo">
 								<a href="{{ route('home') }}" class="logo">
 									{{-- <img src="{{ asset('client/img/logo.png') }}" alt=""> --}}
-									<h1>HuyLong</h1>
+									<h1 class="text-white">HuyLong</h1>
 								</a>
 							</div>
 						</div>

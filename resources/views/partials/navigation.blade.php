@@ -7,7 +7,7 @@
 				<div id="responsive-nav">
 					<!-- NAV -->
 					<ul class="main-nav nav navbar-nav">
-						<li class="active"><a href="#">Home</a></li>
+						<li class="active"><a href="{{ route('home') }}">Home</a></li>
 						<li id="category_parent"><a>Tất cả thế loại</a>
 							<ul id="category_child">
 								@foreach($categories_list as $category)
@@ -15,9 +15,6 @@
 								@endforeach
 							</ul>
 						</li>
-						<li><a href="#">Sản phẩm mới nhất</a></li>
-						<li><a href="#">Giảm giá sốc</a></li>
-						<li><a href="#">Liên hệ chúng tôi</a></li>
 					</ul>
 					<!-- /NAV -->
 				</div>

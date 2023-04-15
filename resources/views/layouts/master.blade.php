@@ -16,7 +16,7 @@
 
         @yield('content')
 
-		@include('partials.newsletter')
+		{{-- @include('partials.newsletter') --}}
         @include('partials.footer')        
 
 		@include('partials.js_files')

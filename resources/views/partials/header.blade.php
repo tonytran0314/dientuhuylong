@@ -42,7 +42,8 @@
 						<div class="col-md-3">
 							<div class="header-logo">
 								<a href="{{ route('home') }}" class="logo">
-									<img src="{{ asset('client/img/logo.png') }}" alt="">
+									{{-- <img src="{{ asset('client/img/logo.png') }}" alt=""> --}}
+									<h1>HuyLong</h1>
 								</a>
 							</div>
 						</div>
@@ -58,7 +59,7 @@
 										<option value="1">Category 01</option>
 										<option value="1">Category 02</option>
 									</select> --}}
-									<input class="input" type="text" name="search_keyword" placeholder="Search here">
+									<input class="input" type="text" name="search_keyword" placeholder="Hôm nay bạn muốn tìm kiếm gì">
 									<button type="submit" class="search-btn">Search</button>
 								</form>
 							</div>

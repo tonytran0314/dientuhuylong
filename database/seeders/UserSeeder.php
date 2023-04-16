@@ -14,16 +14,6 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
-            'name' => 'Trần Gia Huy',
-            'email' => 'giahuytran14301@gmail.com',
-            'image' => '6431350e8e8d0.jpg',
-            'address' => 'Tiền Giang',
-            'phone_number' => '12345678',
-            'email_verified_at' => null,
-            'password' => 'kojunua11',
-            'remember_token' => null
-        ]);
         User::factory()->count(10)->create();
     }
 }

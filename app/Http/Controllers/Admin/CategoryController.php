@@ -44,7 +44,7 @@ class CategoryController extends Controller
 
     public function editProcess(Request $request) {
         $request->validate([
-            'name' => 'required|regex:/^[a-zA-Z0-9 ]+$/'
+            'name' => 'required|regex:/^([a-zA-Z0-9ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s]+)$/'
         ]);
 
         $id = $request->id;

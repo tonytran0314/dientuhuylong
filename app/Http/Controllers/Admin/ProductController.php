@@ -87,7 +87,7 @@ class ProductController extends Controller
 
     public function editProcess(Request $request) {
         $request->validate([
-            'name' => 'required|regex:/^[a-zA-Z0-9 ]+$/',
+            'name' => 'required|regex:/^([a-zA-Z0-9ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s]+)$/',
             'category' => 'required|numeric',
             'price' => 'required|numeric'
         ]);
@@ -118,8 +118,8 @@ class ProductController extends Controller
 
     public function addProcess(Request $request) {
         $request->validate([
-            'name' => 'required|regex:/^[a-zA-Z0-9 ]+$/',
-            'image' => 'required|image|size:4096',
+            'name' => 'required|regex:/^([a-zA-Z0-9ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s]+)$/',
+            'image' => 'required|image',
             'category' => 'required|numeric',
             'price' => 'required|numeric'
         ]);

@@ -61,7 +61,7 @@ class CategoryController extends Controller
 
     public function addProcess(Request $request) {
         $request->validate([
-            'name' => 'required|regex:/^[a-zA-Z0-9 ]+$/'
+            'name' => 'required|regex:/^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s\W|_]+$/'
         ]);
 
         $name = $request->name;

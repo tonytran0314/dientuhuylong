@@ -17,7 +17,9 @@
 							@role ('admin')
 								<li><a href="{{ route('dashboard') }}">Trang quản trị</a></li>
 							@endrole
-							
+							@role ('user')
+								<li><a href="{{ route('profile.edit') }}">Trang cá nhân</a></li>
+							@endrole
 							<form method="POST" action="{{ route('logout') }}">
 								@csrf
 								<li><a href="{{ route('logout') }}" onclick="event.preventDefault();

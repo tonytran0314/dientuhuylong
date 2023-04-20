@@ -20,22 +20,44 @@
 								<h3 class="title">địa chỉ giao hàng</h3>
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="fullname" placeholder="Họ và tên">
+								<label for="fullname">Họ và tên</label>
+								<input class="input" type="text" name="fullname" id="fullname" required>
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="phone_number" placeholder="Số điện thoại">
+								<label for="phone_number">Số điện thoại</label>
+								<input class="input" type="text" name="phone_number" id="phone_number" required>
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="tinh_tp" placeholder="Tỉnh/Thành phố">
+								{{-- <input class="input" type="text" name="tinh_tp" placeholder="Thành phố/Tỉnh" required> --}}
+								<label for="tp_tinh">Thành phố/Tỉnh</label>
+								<select class="input" name="tp_tinh" id="tp_tinh" required>
+									<option disabled selected>-Chọn Thành phố/Tỉnh-</option>
+									<option value="">1</option>
+									<option value="">2</option>
+									<option value="">3</option>
+								</select>
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="huyen_quan" placeholder="Huyện/Quận">
+								<label for="quan_huyen">Quận/Huyện</label>
+								<select class="input" name="quan_huyen" id="quan_huyen" required>
+									<option disabled selected>-Chọn Quận/Huyện-</option>
+									<option value="">1</option>
+									<option value="">2</option>
+									<option value="">3</option>
+								</select>
 							</div>
                             <div class="form-group">
-								<input class="input" type="text" name="xa_phuong" placeholder="Xã/Phường">
+								<label for="phuong_xa">Phường/Xã</label>
+								<select class="input" name="phuong_xa" id="phuong_xa" required>
+									<option disabled selected>-Chọn Phường/Xã-</option>
+									<option value="">1</option>
+									<option value="">2</option>
+									<option value="">3</option>
+								</select>
 							</div>
                             <div class="form-group">
-								<input class="input" type="text" name="number_road" placeholder="Số nhà và tên đường">
+								<label for="number_road">Số nhà và tên đường</label>
+								<input class="input" type="text" name="number_road" id="number_road" required>
 							</div>
 							{{-- <div class="form-group">  <div class="input-checkbox">
 									<input type="checkbox" id="create-account">
@@ -94,7 +116,8 @@
 
 						<!-- Order notes -->
 						<div class="order-notes">
-							<textarea class="input" placeholder="Order Notes"></textarea>
+							<label for="notes">Ghi chú</label>
+							<textarea class="input" name="notes" id="notes"></textarea>
 						</div>
 						<!-- /Order notes -->
 					</div>
@@ -117,10 +140,10 @@
                                     </div>
                                 @endforeach
 							</div>
-							<div class="order-col">
+							{{-- <div class="order-col">
 								<div>Phí vận chuyển</div>
-								<div><strong>MIỄN PHÍ</strong></div>
-							</div>
+								<div><strong>50,000</strong></div>
+							</div> --}}
 							<div class="order-col">
 								<div><strong>TỔNG CỘNG</strong></div>
 								<div><strong class="order-total">{{ number_format($totalPrice) }} VNĐ</strong></div>

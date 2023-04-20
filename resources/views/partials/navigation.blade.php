@@ -9,11 +9,11 @@
 					<ul class="main-nav nav navbar-nav">
 						<li class="active"><a href="{{ route('home') }}">Home</a></li>
 						<li id="category_parent"><a>Tất cả thế loại</a>
-							<ul id="category_child">
+							{{-- <ul id="category_child">
 								@foreach($categories_list as $category)
 									<li><a href="{{ route('product.byCate', $category->slug) }}">{{ $category->name }}</a></li>
 								@endforeach
-							</ul>
+							</ul> --}}
 						</li>
 						<li><a href="{{ route('product.byCate', 'noi-chien-khong-dau') }}">Nồi chiên không dầu</a></li>
 						<li><a href="{{ route('product.byCate', 'tivi') }}">Tivi</a></li>

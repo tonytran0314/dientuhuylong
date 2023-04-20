@@ -40,7 +40,7 @@ require __DIR__.'/admin/admin.php';
 
 
 // =================================== PROFILES ROUTES =================================== //
-// require __DIR__.'/client/profile.php';
+require __DIR__.'/client/profile.php';
 
 
 // =================================== AUTH ROUTES =================================== //

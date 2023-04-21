@@ -11,7 +11,9 @@
 				<!-- row -->
 				<div class="row">
                     
-                    <h1>Check</h1>
+                    <h1>Bạn đã đặt hàng thành công</h1>
+                    <p>Một email xác nhận sẽ được gởi đến địa chỉ email: {{ $client_email }}</p>
+                    <p>Quý khách vui lòng kiểm tra email để biết thêm thông tin.</p>
 
                 </div>
             </div>

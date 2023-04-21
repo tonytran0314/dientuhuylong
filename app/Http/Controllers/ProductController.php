@@ -78,7 +78,7 @@ class ProductController extends Controller
     }
 
     public function success_order($client_email) {
-        return view('dynamic.product.successOrder');
+        return view('dynamic.product.successOrder', ['client_email' => $client_email]);
     }
 
 

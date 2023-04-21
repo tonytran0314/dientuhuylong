@@ -7,3 +7,4 @@
 <script src="{{ asset('client/js/comment.js') }}"></script>
 <script src="{{ asset('client/js/quantity.js') }}"></script>
 <script src="{{ asset('client/js/navigation.js') }}"></script>
+<script src="{{ asset('client/js/address.js') }}"></script>

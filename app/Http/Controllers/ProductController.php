@@ -7,7 +7,11 @@ use App\Models\Product;
 use App\Models\Comment;
 use App\Models\Category;
 use App\Models\User;
+use App\Models\TpTinh;
+use App\Models\QuanHuyen;
+use App\Models\XaPhuongThitran;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class ProductController extends Controller
 {
@@ -68,9 +72,11 @@ class ProductController extends Controller
 
         return view('dynamic.product.checkout', [
             'productsInCart' => $productsInCart,
-            'totalPrice' => $total_price
+            'totalPrice' => $total_price,
+            'tinh_tp' => TpTinh::all()
         ]);
     }
+
 
     // ========================================= POST ========================================= //
 
@@ -84,5 +90,46 @@ class ProductController extends Controller
         return redirect(route('product.searchResult', $keyword));
     }
 
+    public function checkoutProcess(Request $request) {
+        
+        // validation
+        $request->validate([
+            'fullname' => ['required', 'max:255', 'min:5'],
+            'email' => ['required', 'email'],
+            'phone_number' => ['required', 'numeric'],
+            'tp_tinh' => ['required'],
+            'quan_huyen' => ['required'],
+            'phuong_xa' => ['required'],
+            'number_road' => ['required', 'max:255'],
+            'notes' => ['max:255']
+        ]);
 
+        // variables assignment
+        $fullname = $request->fullname;
+        $client_email = $request->email;
+        $phone_number = $request->phone_number;
+
+        $tp_tinh = TpTinh::where('matp', $request->tp_tinh)->firstOrFail();
+        $quan_huyen = QuanHuyen::where('maqh', $request->quan_huyen)->firstOrFail();
+        $phuong_xa = XaPhuongThitran::where('xaid', $request->phuong_xa)->firstOrFail();
+        $number_road = $request->number_road;
+
+        $notes = $request->notes;
+
+        // send receipt to client email
+        Mail::send(
+            'dynamic.product.email', 
+            [
+                'name' => $fullname,
+                'ttp' => $tp_tinh,
+                'qh' => $quan_huyen,
+                'px' => $phuong_xa,
+                'nr' => $number_road
+            ], 
+            function($email) use ($client_email){
+                $email->subject('Điện tử Huy Long - Cám ơn bạn đã mua sắm cùng chúng tôi');
+                $email->to($client_email);
+            }
+        );
+    }
 }

@@ -10,53 +10,58 @@
 			<div class="container">
 				<!-- row -->
 				<div class="row">
-
+					@if ($errors->any())
+					<div class="alert alert-danger">
+						<ul>
+							@foreach ($errors->all() as $error)
+								<li>{{ $error }}</li>
+							@endforeach
+						</ul>
+					</div>
+				@endif
 					<div class="col-md-7">
-                        <form action="#" method="POST">
+                        <form action="{{ route('product.checkoutProcess') }}" method="POST">
                             @csrf
 						<!-- Billing Details -->
 						<div class="billing-details">
 							<div class="section-title">
-								<h3 class="title">địa chỉ giao hàng</h3>
+								<h3 class="title">Thông tin giao hàng</h3>
 							</div>
 							<div class="form-group">
-								<label for="fullname">Họ và tên</label>
+								<label for="fullname">Họ và tên <span style="color:red;">*</span></label>
 								<input class="input" type="text" name="fullname" id="fullname" required>
 							</div>
 							<div class="form-group">
-								<label for="phone_number">Số điện thoại</label>
+								<label for="email">Email <span style="color:red;">*</span></label>
+								<input class="input" type="text" name="email" id="email" required>
+							</div>
+							<div class="form-group">
+								<label for="phone_number">Số điện thoại <span style="color:red;">*</span></label>
 								<input class="input" type="text" name="phone_number" id="phone_number" required>
 							</div>
 							<div class="form-group">
-								{{-- <input class="input" type="text" name="tinh_tp" placeholder="Thành phố/Tỉnh" required> --}}
-								<label for="tp_tinh">Thành phố/Tỉnh</label>
+								<label for="tp_tinh">Thành phố/Tỉnh <span style="color:red;">*</span></label>
 								<select class="input" name="tp_tinh" id="tp_tinh" required>
 									<option disabled selected>-Chọn Thành phố/Tỉnh-</option>
-									<option value="">1</option>
-									<option value="">2</option>
-									<option value="">3</option>
+									@foreach($tinh_tp as $ttp)
+										<option value="{{ $ttp->matp }}">{{ $ttp->name }}</option>
+									@endforeach
 								</select>
 							</div>
 							<div class="form-group">
-								<label for="quan_huyen">Quận/Huyện</label>
-								<select class="input" name="quan_huyen" id="quan_huyen" required>
+								<label for="quan_huyen">Quận/Huyện <span style="color:red;">*</span></label>
+								<select class="input" name="quan_huyen" id="quan_huyen" disabled required>
 									<option disabled selected>-Chọn Quận/Huyện-</option>
-									<option value="">1</option>
-									<option value="">2</option>
-									<option value="">3</option>
 								</select>
 							</div>
                             <div class="form-group">
-								<label for="phuong_xa">Phường/Xã</label>
-								<select class="input" name="phuong_xa" id="phuong_xa" required>
+								<label for="phuong_xa">Phường/Xã <span style="color:red;">*</span></label>
+								<select class="input" name="phuong_xa" id="phuong_xa" disabled required>
 									<option disabled selected>-Chọn Phường/Xã-</option>
-									<option value="">1</option>
-									<option value="">2</option>
-									<option value="">3</option>
 								</select>
 							</div>
                             <div class="form-group">
-								<label for="number_road">Số nhà và tên đường</label>
+								<label for="number_road">Số nhà và tên đường <span style="color:red;">*</span></label>
 								<input class="input" type="text" name="number_road" id="number_road" required>
 							</div>
 							{{-- <div class="form-group">  <div class="input-checkbox">
@@ -188,7 +193,7 @@
 								I've read and accept the <a href="#">terms & conditions</a>
 							</label>
 						</div>--}}
-						<a href="#" class="primary-btn order-submit">Xác nhận đặt hàng</a>
+						<button type="submit" class="primary-btn order-submit">Xác nhận đặt hàng</button>
 					</div>
 					<!-- /Order Details -->
                     </form>

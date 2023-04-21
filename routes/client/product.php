@@ -11,6 +11,7 @@ Route::prefix('product')->group(function () {
         Route::get('/checkout', 'checkout')->name('product.checkout')->middleware(['auth', 'role:user']);
 
         Route::post('/search', 'search')->name('product.search');
+        Route::post('/checkoutProcess', 'checkoutProcess')->name('product.checkoutProcess');
     });
 });
 

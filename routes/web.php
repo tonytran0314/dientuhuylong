@@ -45,3 +45,6 @@ require __DIR__.'/client/profile.php';
 
 // =================================== AUTH ROUTES =================================== //
 require __DIR__.'/auth.php';
+
+// =================================== AUTH ROUTES =================================== //
+require __DIR__.'/client/ajax.php';

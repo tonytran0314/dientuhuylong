@@ -12,7 +12,7 @@
 				<div class="row">
                     
                     <h1>Bạn đã đặt hàng thành công</h1>
-                    <p>Một email xác nhận sẽ được gởi đến địa chỉ email: {{ $client_email }}</p>
+                    <p>Một email xác nhận sẽ được gởi đến địa chỉ email: <strong>{{ $client_email }}</strong></p>
                     <p>Quý khách vui lòng kiểm tra email để biết thêm thông tin.</p>
 
                 </div>

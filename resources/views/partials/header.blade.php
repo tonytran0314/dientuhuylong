@@ -6,10 +6,10 @@
 					<ul class="header-links pull-left">
 						<li>
 							<a href="#"><i class="fa fa-phone"></i> 
-								0918 689 080
+								---- --- ---
 							</a>
 						</li>
-						<li><a href="#"><i class="fa fa-envelope-o"></i> dientu.huylong@gmail.com</a></li>
+						<li><a href="#"><i class="fa fa-envelope-o"></i> giahuy.mailer@gmail.com</a></li>
 						<li><a href="#"><i class="fa fa-map-marker"></i> Chợ Gạo, Tiền Giang</a></li>
 					</ul>
 					<ul class="header-links pull-right">

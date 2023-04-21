@@ -77,6 +77,10 @@ class ProductController extends Controller
         ]);
     }
 
+    public function success_order($client_email) {
+        return view('dynamic.product.successOrder');
+    }
+
 
     // ========================================= POST ========================================= //
 
@@ -131,5 +135,8 @@ class ProductController extends Controller
                 $email->to($client_email);
             }
         );
+
+        return redirect(route('product.success_order', $client_email));
+
     }
 }

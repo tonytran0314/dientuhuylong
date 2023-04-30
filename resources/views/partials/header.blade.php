@@ -3,7 +3,7 @@
 			<!-- TOP HEADER -->
 			<div id="top-header">
 				<div class="container">
-					<ul class="header-links pull-left">
+					<!-- <ul class="header-links pull-left">
 						<li>
 							<a href="#"><i class="fa fa-phone"></i> 
 								---- --- ---
@@ -11,7 +11,7 @@
 						</li>
 						<li><a href="#"><i class="fa fa-envelope-o"></i> giahuy.mailer@gmail.com</a></li>
 						<li><a href="#"><i class="fa fa-map-marker"></i> Chợ Gạo, Tiền Giang</a></li>
-					</ul>
+					</ul> -->
 					<ul class="header-links pull-right">
 						@auth
 							@role ('admin')

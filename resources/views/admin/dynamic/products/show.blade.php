@@ -43,7 +43,7 @@
                                             <td>{{ $product->id }}</td>
                                             <td>{{ $product->name }}</td>
                                             <td><img src="{{ asset('storage/'.$product->image) }}" alt="Product Image" class="img-in-table"></td>
-                                            <td>{{ $product->price }}</td>
+                                            <td>{{ number_format($product->price) }}</td>
                                             <td>
                                                 @if ($product->category)
                                                     <a href="{{ route('product.admin.byCategory', $product->category->id) }}">{{ $product->category->name }}</a>

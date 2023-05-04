@@ -70,6 +70,9 @@
                     <label for="name">Giá sản phẩm</label>
                     <input type="text" name="price" value="{{ $detail->price }}" class="form-control mb-4">
 
+                    <label for="description">Mô tả sản phẩm</label>
+                    <textarea name="description" class="form-control mb-4" cols="30" rows="10">{{ $detail->description }}</textarea>
+
                     <button type="submit" name="save-change" class="btn btn-success">Lưu thay đổi</button>
                 </div>
             </form>

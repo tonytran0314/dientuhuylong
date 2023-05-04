@@ -10,7 +10,7 @@ class CommentController extends Controller
     // ========================================= POST ========================================= //
     public function add(Request $request) {
         $request->validate([
-            'content' => 'required|regex:/^[a-zA-Z0-9 ]+$/',
+            'content' => 'required|regex:/^([a-zA-Z0-9ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềếểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\.\(\)\-\"\'\d,\s]+)$/',
             'user_id'=> 'required|numeric',
             'product_id' => 'required|numeric',
             'product_slug' => 'required|string'
@@ -27,7 +27,7 @@ class CommentController extends Controller
 
     public function edit(Request $request) {
         $request->validate([
-            'update_content' => 'required|regex:/^[a-zA-Z0-9 ]+$/',
+            'update_content' => 'required|regex:/^([a-zA-Z0-9ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềếểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\.\(\)\-\"\'\d,\s]+)$/',
             'user_id'=> 'required|numeric',
             'product_id' => 'required|numeric',
             'product_slug' => 'required|string',

@@ -21,7 +21,7 @@
 					<!-- /Product main img -->
 
 					<!-- Product thumb imgs -->
-					{{-- <div class="col-md-2  col-md-pull-5">
+					<!-- {{-- <div class="col-md-2  col-md-pull-5">
 						<div id="product-imgs">
 							<div class="product-preview">
 								<img src="./img/product01.png" alt="">
@@ -39,14 +39,14 @@
 								<img src="./img/product08.png" alt="">
 							</div>
 						</div>
-					</div> --}}
+					</div> --}} -->
 					<!-- /Product thumb imgs -->
 
 					<!-- Product details -->
 					<div class="col-md-6">
 						<div class="product-details">
 							<h2 class="product-name">{{ $detail->name }}</h2>
-							{{-- <div>
+							<!-- {{-- <div>
 								<div class="product-rating">
 									<i class="fa fa-star"></i>
 									<i class="fa fa-star"></i>
@@ -55,16 +55,16 @@
 									<i class="fa fa-star-o"></i>
 								</div>
 								<a class="review-link" href="#">10 Review(s) | Add your review</a>
-							</div> --}}
+							</div> --}} -->
 							<div>
 								<h3 class="product-price">{{ number_format($detail->price) }} VNĐ
-									{{-- <del class="product-old-price">$990.00</del> --}}
+									<!-- {{-- <del class="product-old-price">$990.00</del> --}} -->
 								</h3>
-								{{-- <span class="product-available">In Stock</span> --}}
+								<!-- {{-- <span class="product-available">In Stock</span> --}} -->
 							</div>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+							<p>{{ $detail->description }}</p>
 
-							{{-- <div class="product-options">
+							<!-- {{-- <div class="product-options">
 								<label>
 									Size
 									<select class="input-select">
@@ -77,13 +77,13 @@
 										<option value="0">Red</option>
 									</select>
 								</label>
-							</div> --}}
+							</div> --}} -->
 
 							<form action="{{ route('product.cart.add') }}" method="POST" id="detail_add_to_cart_form">
 								@csrf
 								<div class="add-to-cart">
 									<div class="qty-label">
-										Qty
+										Số lượng
 										<div class="input-number">
 											<input type="number" name="quantity">
 											<span class="qty-up">+</span>
@@ -94,7 +94,7 @@
 									<input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
 									<input type="hidden" name="to_cart_product_id" value="{{ $detail->id }}">
 									@endauth
-									<button submit class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+									<button submit class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> thêm vào giỏ hàng</button>
 								</div>
 							</form>
 

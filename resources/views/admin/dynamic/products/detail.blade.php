@@ -24,7 +24,8 @@
                         {{ __('Không xác định thể loại') }}
                     @endif   
                 </h2>
-                <p>{{ $detail->price }} VNĐ</p>
+                <p>{{ number_format($detail->price) }} VNĐ</p>
+                <p>{{ $detail->description }}</p>
                 <a href="{{ route('product.admin.edit', $detail->slug) }}" class="btn btn-warning text-dark">Sửa</a>
                 <a href="#" class="btn btn-danger">Xóa</a>
             </div>

@@ -434,7 +434,7 @@
 										<hr>
 										<li class="media">
 											<a href="#" class="pull-left">
-												<img src="{{ asset('storage/'.Auth::user()->image) }}" alt="" class="img-circle">
+												<img src="{{ asset('storage/'.$comment->user->name) }}" alt="" class="img-circle">
 											</a>
 											<div class="media-body">
 												@auth

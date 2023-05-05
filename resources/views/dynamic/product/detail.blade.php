@@ -432,7 +432,7 @@
 										<hr>
 										<li class="media">
 											<a href="#" class="pull-left">
-												<img src="{{ Auth::user()->id }}" alt="" class="img-circle">
+												<img src="{{ Auth::user()->image }}" alt="" class="img-circle">
 											</a>
 											<div class="media-body">
 												@if ($comment->user->id == Auth::user()->id)

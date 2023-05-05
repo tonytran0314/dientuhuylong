@@ -47,6 +47,10 @@
                         <input type="file" name="image" id="image">
                     </div>
                 </div>
+
+                <label for="description">Mô tả sản phẩm</label>
+                <textarea name="description" class="form-control mb-4" cols="30" rows="10"></textarea>
+
                 <button type="submit" name="save-change" class="btn btn-success">Thêm sản phẩm</button>
             </form>
         </div>

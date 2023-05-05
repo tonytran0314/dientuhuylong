@@ -402,7 +402,7 @@
 		</div>
 		<!-- /Section -->
 
-		@auth
+		
 		<div class="section">
 			<div class="container">
 				<div class="row bootstrap snippets bootdeys">
@@ -415,6 +415,7 @@
 									</div>
 								</div>
 								<div class="panel-body">
+									@auth
 									<form action="{{ route('comment.add') }}" method="POST">
 										@csrf
 										<textarea class="form-control" placeholder="Viết bình luận..." rows="3" name="content"></textarea>
@@ -425,6 +426,7 @@
 										<button type="submit" name="submit_comment_button" class="btn btn-info pull-right">Post</button>
 										<div class="clearfix"></div>
 									</form>
+									@endauth
 									
 									<ul class="media-list">
 										
@@ -435,6 +437,7 @@
 												<img src="{{ asset('storage/'.Auth::user()->image) }}" alt="" class="img-circle">
 											</a>
 											<div class="media-body">
+												@auth
 												@if ($comment->user->id == Auth::user()->id)
 												<span class="text-muted pull-right">
 
@@ -455,6 +458,7 @@
 
 												</span>
 												@endif
+												@endauth
 												<strong class="text-primary">{{ $comment->user->name }}</strong>
 												<p>
 													{{ $comment->content }}
@@ -474,7 +478,7 @@
 		</div>
 
 
-
+@auth
 		<!-- Edit Comment Modal -->
 <div class="modal fade" id="edit_comment_modal" tabindex="-1" role="dialog" aria-labelledby="edit_comment_modal_label" aria-hidden="true">
 	<div class="modal-dialog" role="document">
@@ -532,4 +536,5 @@
 	</div>
 </div>
 		@endauth
+
 @stop

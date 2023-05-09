@@ -10,6 +10,7 @@
     <script src="{{ asset('dashbrd/js/sb-admin-2.min.js') }}"></script>
     <script src="{{ asset('dashbrd/js/product.js') }}"></script>
     <script src="{{ asset('dashbrd/js/category.js') }}"></script>
+    <script src="{{ asset('dashbrd/js/profile.js') }}"></script>
 
     <!-- Page level plugins -->
     <script src="{{ asset('dashbrd/vendor/chart.js/Chart.min.js') }}"></script>

@@ -7,6 +7,12 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
+use Illuminate\Support\Facades\Redirect;
+
+use App\Http\Requests\Admin\Category\DeleteCategoryRequest;
+use App\Http\Requests\Admin\Category\EditCategoryRequest;
+use App\Http\Requests\Admin\Category\AddCategoryRequest;
+
 class CategoryController extends Controller
 {
     // ========================================= GET ========================================= //
@@ -25,53 +31,41 @@ class CategoryController extends Controller
     }
 
     public function add() {
-        return view('admin.dynamic.categories.add', [
-        ]);
+        return view('admin.dynamic.categories.add');
     }
 
     // ========================================= POST ========================================= //
 
-    public function deleteProcess(Request $request) {
-        $request->validate([
-            'category_id' => 'required|numeric'
-        ]);
-        $id = $request->category_id;
+    public function deleteProcess(DeleteCategoryRequest $request) {
+        $request->validated($request->all());
 
-        Category::where('id', $id)->forceDelete();
+        Category::where('id', $request->category_id)->forceDelete();
 
-        return redirect(route('category.admin.show'))->with('successMessage', 'Đã xóa thể loại thành công');
+        return Redirect::route('category.admin.show')
+                        ->with('successMessage', 'Đã xóa thể loại thành công');
     }
 
-    public function editProcess(Request $request) {
-        $request->validate([
-            'name' => 'required|regex:/^([a-zA-Z0-9ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềếểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\%\x3B\/\.\;\&\(\)\-\+\"\'\d,\s]+)$/'
+    public function editProcess(EditCategoryRequest $request) {
+        $request->validated($request->all());
+
+        Category::where('id', $request->id)->update([
+            'name' => $request->name,
+            'slug' => Str::slug($request->name)
         ]);
 
-        $id = $request->id;
-        $name = $request->name;
-        $slug = Str::slug($request->name);
-
-        Category::where('id', $id)->update([
-            'name' => $name,
-            'slug' => $slug
-        ]);
-
-        return redirect(route('category.admin.show'))->with('successMessage', 'Cập nhật thể loại thành công');
+        return Redirect::route('category.admin.show')
+                        ->with('successMessage', 'Cập nhật thể loại thành công');
     }
 
-    public function addProcess(Request $request) {
-        $request->validate([
-            'name' => 'required|regex:/^([a-zA-Z0-9ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềếểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\%\x3B\/\.\;\&\(\)\-\+\"\'\d,\s]+)$/'
-        ]);
-
-        $name = $request->name;
-        $slug = Str::slug($request->name);
+    public function addProcess(AddCategoryRequest $request) {
+        $request->validated($request->all());
 
         Category::insert([
-            'name' => $name,
-            'slug' => $slug
+            'name' => $request->name,
+            'slug' => Str::slug($request->name)
         ]);
 
-        return redirect(route('category.admin.show'))->with('successMessage', 'Thêm thể loại thành công');
+        return Redirect::route('category.admin.show')
+                        ->with('successMessage', 'Thêm thể loại thành công');
     }
 }

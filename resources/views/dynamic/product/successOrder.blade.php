@@ -14,6 +14,7 @@
                     <h1>Bạn đã đặt hàng thành công</h1>
                     <p>Một email xác nhận sẽ được gởi đến địa chỉ email: <strong>{{ $client_email }}</strong></p>
                     <p>Quý khách vui lòng kiểm tra email để biết thêm thông tin.</p>
+                    <a href="{{ route('home') }}" class="btn btn-success">Tiếp tục mua sắm</a>
 
                 </div>
             </div>

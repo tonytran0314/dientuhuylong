@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use App\Models\Product;
 use App\Models\Comment;
 use App\Models\Category;
@@ -10,8 +11,13 @@ use App\Models\User;
 use App\Models\TpTinh;
 use App\Models\QuanHuyen;
 use App\Models\XaPhuongThitran;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redirect;
+
+use App\Http\Requests\SearchRequest;
+use App\Http\Requests\CheckoutRequest;
 
 class ProductController extends Controller
 {
@@ -27,12 +33,17 @@ class ProductController extends Controller
                                             ['category_id', $category_id],
                                             ['id', '<>', $product_id]
                                         ])->get();
+        $relatedProductsCount = Product::where([
+                                            ['category_id', $category_id],
+                                            ['id', '<>', $product_id]
+                                        ])->count();
 
         $comments = Comment::where('product_id', $product_id)->orderBy('id', 'desc')->paginate(10);
 
         return view('dynamic.product.detail', [
             'detail' => $detail,
             'relatedProducts' => $relatedProducts,
+            'relatedProductsCount' => $relatedProductsCount,
             'comments' => $comments
         ]);
 
@@ -42,11 +53,10 @@ class ProductController extends Controller
         $category = Category::slug($cate_slug)->firstOrFail();
         $id = $category->id;
         
-        $productsByCategory = Product::where('category_id', $id)->paginate(9);
-        
         return view('dynamic.product.byCate', [
-            'productsByCategory' => $productsByCategory,
-            'category' => $category
+            'productsByCategory' => Product::where('category_id', $id)->paginate(9),
+            'category' => $category,
+            'prodCount' => Product::where('category_id', $id)->count()
         ]);
     }
 
@@ -84,29 +94,15 @@ class ProductController extends Controller
 
     // ========================================= POST ========================================= //
 
-    public function search(Request $request) {
-        $request->validate([
-            'search_keyword' => 'required|regex:/^([a-zA-Z0-9ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềếểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\%\x3B\/\.\;\&\(\)\-\+\"\'\d,\s]+)$/'
-        ]);
+    public function search(SearchRequest $request) {
+        $request->validated($request->all());
 
-        $keyword = $request->search_keyword;
-
-        return redirect(route('product.searchResult', $keyword));
+        return Redirect::route('product.searchResult', $request->search_keyword);
     }
 
-    public function checkoutProcess(Request $request) {
+    public function checkoutProcess(CheckoutRequest $request) {
         
-        // validation
-        $request->validate([
-            'fullname' => ['required', 'max:255', 'min:5'],
-            'email' => ['required', 'email'],
-            'phone_number' => ['required', 'numeric'],
-            'tp_tinh' => ['required'],
-            'quan_huyen' => ['required'],
-            'phuong_xa' => ['required'],
-            'number_road' => ['required', 'max:255'],
-            'notes' => ['max:255']
-        ]);
+        $request->validated($request->all());
 
         // variables assignment
         $fullname = $request->fullname;
@@ -136,7 +132,7 @@ class ProductController extends Controller
             }
         );
 
-        return redirect(route('product.success_order', $client_email));
+        return Redirect::route('product.success_order', $client_email);
 
     }
 }

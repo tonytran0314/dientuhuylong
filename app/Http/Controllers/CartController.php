@@ -3,9 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+
+use App\Models\User;
 use App\Models\ProductUser;
+
+use App\Http\Requests\Cart\AddToCartRequest;
+use App\Http\Requests\Cart\EditCartRequest;
+use App\Http\Requests\Cart\RemoveFromCartRequest;
 
 class CartController extends Controller
 {
@@ -28,12 +34,8 @@ class CartController extends Controller
     }
 
     // ========================================= POST ========================================= //
-    public function add(Request $request) {
-        $request->validate([
-            'to_cart_product_id' => 'required|numeric',
-            'user_id' => 'required|numeric',
-            'quantity' => 'required|numeric'
-        ]);
+    public function add(AddToCartRequest $request) {
+        $request->validated($request->all());
 
         $product_id = $request->to_cart_product_id;
         $user_id = $request->user_id;
@@ -58,34 +60,27 @@ class CartController extends Controller
             $cart->save();
         }
 
-        return redirect(route('home'));
+        return Redirect::route('home');
     }
 
-    public function edit(Request $request) {
-        $request->validate([
-            'product_user_id' => 'required|numeric',
-            'new_quantity' => 'required|numeric'
-        ]);
+    public function edit(EditCartRequest $request) {
+        $request->validated($request->all());
 
-        $id = $request->product_user_id;
-        $new_quantity = $request->new_quantity;
+        // this way or the way in the admin/CategoryController
+        $cart_item = ProductUser::find($request->product_user_id);
 
-        $cart_item = ProductUser::find($id);
+        $cart_item->quantity = $request->new_quantity;
 
-        $cart_item->quantity = $new_quantity;
         $cart_item->save();
         
-        return redirect(route('product.cart.show'));
+        return Redirect::route('product.cart.show');
     }
 
-    public function remove(Request $request) {
-        $request->validate([
-            'remove_product_user_id' => 'required|numeric'
-        ]);
-        $id = $request->remove_product_user_id;
+    public function remove(RemoveFromCartRequest $request) {
+        $request->validated($request->all());
 
-        ProductUser::where('id', $id)->forceDelete();
+        ProductUser::where('id', $request->remove_product_user_id)->forceDelete();
 
-        return redirect(route('product.cart.show'));
+        return Redirect::route('product.cart.show');
     }
 }

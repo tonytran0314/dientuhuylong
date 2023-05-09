@@ -78,9 +78,9 @@
                     {{-- PAGE TITLE --}}
                     <div class="col-md-12">
                         <div class="section-title">
-                            <h3 class="title">Bạn chưa có sản phẩm nào trong giỏ hàng</h3>
+                            <h2 class="h2">Bạn chưa có sản phẩm nào trong giỏ hàng</h2>
                             <br><br>
-                            <a href="{{ route('home') }}">Tiếp tục mua sắm</a>
+                            <a href="{{ route('home') }}" class="btn btn-success">Tiếp tục mua sắm</a>
                         </div>
                     </div>
                 @endif

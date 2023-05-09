@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Hash;
+
 use Illuminate\View\View;
 use App\Models\User;
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Hash;
+
+use App\Http\Requests\Profile\UpdateInformationRequest;
+use App\Http\Requests\Profile\UpdatePasswordRequest;
 
 class ProfileController extends Controller
 {
@@ -27,12 +30,8 @@ class ProfileController extends Controller
     /**
      * Update the user's profile information.
      */
-    public function update_info(Request $request) {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($request->id)],
-            'image' => ['image']
-        ]);
+    public function update_info(UpdateInformationRequest $request) {
+        $request->validated($request->all());
 
         $id = $request->id;
         $name = $request->name;
@@ -54,21 +53,8 @@ class ProfileController extends Controller
         return Redirect::route('profile.edit')->with('successMessage', 'Đã cập nhật thông tin cá nhân thành công');
     }
 
-    public function update_password(Request $request) {
-        $request->validate([
-            'current_password' => [
-                'required', 
-                'string', 
-                'max:255', 
-                function ($attribute, $value, $fail) {
-                    if (!Hash::check($value, Auth::user()->password)) {
-                        return $fail(__('Mật khẩu hiện tại không đúng'));
-                    }
-                }
-            ],
-            'new_password' => ['required', 'string', 'max:255', 'min:6', 'different:current_password'],
-            'repeat_new_password' => ['required', 'string', 'max:255', 'same:new_password']
-        ]);
+    public function update_password(UpdatePasswordRequest $request) {
+        $request->validated($request->all());
 
         $id = $request->id;
         $new_password = $request->new_password;
@@ -83,21 +69,21 @@ class ProfileController extends Controller
     /**
      * Delete the user's account.
      */
-    public function destroy(Request $request): RedirectResponse
-    {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
-        ]);
+    // public function destroy(Request $request): RedirectResponse
+    // {
+    //     $request->validateWithBag('userDeletion', [
+    //         'password' => ['required', 'current_password'],
+    //     ]);
 
-        $user = $request->user();
+    //     $user = $request->user();
 
-        Auth::logout();
+    //     Auth::logout();
 
-        $user->delete();
+    //     $user->delete();
 
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+    //     $request->session()->invalidate();
+    //     $request->session()->regenerateToken();
 
-        return Redirect::to('/');
-    }
+    //     return Redirect::to('/');
+    // }
 }

@@ -85,7 +85,7 @@
 									<div class="qty-label">
 										Số lượng
 										<div class="input-number">
-											<input type="number" name="quantity">
+											<input type="number" name="quantity" value="1">
 											<span class="qty-up">+</span>
 											<span class="qty-down">-</span>
 										</div>
@@ -341,6 +341,7 @@
 		</div>
 		<!-- /SECTION -->
 
+		@if ($relatedProductsCount > 0)
 		<!-- Section -->
 		<div class="section">
 			<!-- container -->
@@ -350,7 +351,7 @@
 
 					<div class="col-md-12">
 						<div class="section-title text-center">
-							<h3 class="title">Related Products</h3>
+							<h2 class="h2">Sản phẩm liên quan</h2>
 						</div>
 					</div>
 					@foreach($relatedProducts as $related_product)
@@ -401,6 +402,7 @@
 			<!-- /container -->
 		</div>
 		<!-- /Section -->
+		@endif
 
 		
 		<div class="section">
@@ -411,7 +413,7 @@
 							<div class="panel">
 								<div class="col-md-12">
 									<div class="section-title text-center">
-										<h3 class="title">Bình luận</h3>
+										<h2 class="h2">Bình luận</h2>
 									</div>
 								</div>
 								<div class="panel-body">
@@ -426,6 +428,8 @@
 										<button type="submit" name="submit_comment_button" class="btn btn-info pull-right">Post</button>
 										<div class="clearfix"></div>
 									</form>
+									@else
+										<a href="{{ route('login') }}" class="btn btn-primary">Đăng nhập để bình luận</a>
 									@endauth
 									
 									<ul class="media-list">

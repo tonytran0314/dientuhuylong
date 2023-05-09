@@ -62,7 +62,7 @@
 										<option value="1">Category 02</option>
 									</select> --}}
 									<input class="input" type="text" name="search_keyword" placeholder="Hôm nay bạn muốn tìm kiếm gì">
-									<button type="submit" class="search-btn">Search</button>
+									<button type="submit" class="search-btn">Tìm kiếm</button>
 								</form>
 							</div>
 						</div>

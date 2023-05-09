@@ -9,7 +9,11 @@
 			<div class="container">
 				<!-- row -->
 				<div class="row">
-					<h1 class="h1">Sản phẩm theo thể loại: {{ $category->name }}</h1>
+
+					@if ($prodCount > 0)
+
+					<h2 class="h2">Sản phẩm theo thể loại: {{ $category->name }} ( {{ $prodCount }} sản phẩm )</h2>
+
 					<!-- ASIDE -->
 					{{-- <div id="aside" class="col-md-3">
 						<!-- aside Widget -->
@@ -285,6 +289,16 @@
 					</div>
 					<!-- /STORE -->
 				</div>
+
+				@else
+
+					<h1 class="h1">Hiện chưa có sản phẩm nào thuộc thể loại này</h1>
+					<a href="{{ route('home') }}" class="btn btn-success">Quay về trang chủ</a>
+					<br>
+					<br>
+
+				@endif
+
 				<!-- /row -->
 			</div>
 			<!-- /container -->

@@ -1,0 +1,8 @@
+.password-toggle {
+  width: 38px;
+  text-align:center;
+  line-height:37px;
+  cursor: pointer;
+  border: 1px solid #D2D4E3;
+  border-right:none;
+}

@@ -9,3 +9,4 @@
     <link href="{{ asset('dashbrd/css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('dashbrd/css/product-show.css') }}" rel="stylesheet">
     <link href="{{ asset('dashbrd/css/product-detail.css') }}" rel="stylesheet">
+    <link href="{{ asset('dashbrd/css/profile.css') }}" rel="stylesheet">

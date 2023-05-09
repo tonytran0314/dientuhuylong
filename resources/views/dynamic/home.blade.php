@@ -5,7 +5,7 @@
 @section('content')
 
 
-		{{-- <!-- SECTION -->
+		{{-- SECTION -->
 		<div class="section">
 			<!-- container -->
 			<div class="container">
@@ -57,7 +57,7 @@
 			</div>
 			<!-- /container -->
 		</div>
-		<!-- /SECTION --> --}}
+		<-- /SECTION --}}
 
 		<!-- SECTION -->
 		<div class="section">
@@ -89,7 +89,7 @@
 								<!-- tab -->
 								<div id="tab1" class="tab-pane active">
 									<div class="products-slick" data-nav="#slick-nav-1">
-										@foreach($allProducts as $product)
+										@foreach($lastestProducts as $product)
 										<!-- product -->
 										<div class="product">
 											<div class="product-img">
@@ -211,15 +211,20 @@
 					<!-- section title -->
 					<div class="col-md-12">
 						<div class="section-title">
-							<h3 class="title">Bán chạy nhất</h3>
-							{{-- <div class="section-nav">
+							<h3 class="title">Bàn phím mới nhất</h3>
+							<!-- <div class="section-nav">
 								<ul class="section-tab-nav tab-nav">
 									<li class="active"><a data-toggle="tab" href="#tab2">Laptops</a></li>
 									<li><a data-toggle="tab" href="#tab2">Smartphones</a></li>
 									<li><a data-toggle="tab" href="#tab2">Cameras</a></li>
 									<li><a data-toggle="tab" href="#tab2">Accessories</a></li>
 								</ul>
-							</div> --}}
+							</div> -->
+							<div class="section-nav">
+								<ul class="section-tab-nav tab-nav">
+									<li class="active"><a href="{{ route('product.byCate','ban-phim') }}">Xem tất cả</a>
+								</ul>
+							</div>
 						</div>
 					</div>
 					<!-- /section title -->
@@ -231,7 +236,7 @@
 								<!-- tab -->
 								<div id="tab2" class="tab-pane fade in active">
 									<div class="products-slick" data-nav="#slick-nav-2">
-										@foreach($allProducts as $product)
+										@foreach($lastestKeyboards as $product)
 										<!-- product -->
 										<div class="product">
 											<div class="product-img">
@@ -291,6 +296,105 @@
 			<!-- /container -->
 		</div>
 		<!-- /SECTION -->
+
+
+		<!-- SECTION -->
+		<div class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+
+					<!-- section title -->
+					<div class="col-md-12">
+						<div class="section-title">
+							<h3 class="title">Chuột máy tính mới nhất</h3>
+							<!-- <div class="section-nav">
+								<ul class="section-tab-nav tab-nav">
+									<li class="active"><a data-toggle="tab" href="#tab2">Laptops</a></li>
+									<li><a data-toggle="tab" href="#tab2">Smartphones</a></li>
+									<li><a data-toggle="tab" href="#tab2">Cameras</a></li>
+									<li><a data-toggle="tab" href="#tab2">Accessories</a></li>
+								</ul>
+							</div> -->
+							<div class="section-nav">
+								<ul class="section-tab-nav tab-nav">
+									<li class="active"><a href="{{ route('product.byCate','chuot-may-tinh') }}">Xem tất cả</a>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<!-- /section title -->
+
+					<!-- Products tab & slick -->
+					<div class="col-md-12">
+						<div class="row">
+							<div class="products-tabs">
+								<!-- tab -->
+								<div id="tab2" class="tab-pane fade in active">
+									<div class="products-slick" data-nav="#slick-nav-2">
+										@foreach($lastestMouses as $product)
+										<!-- product -->
+										<div class="product">
+											<div class="product-img">
+												<img src="{{ asset('storage/'.$product->image) }}" alt="">
+												<div class="product-label">
+													<span class="sale">-30%</span>
+													<span class="new">NEW</span>
+												</div>
+											</div>
+											<div class="product-body">
+												<p class="product-category">{{ $product->category->name }}</p>
+												<h3 class="product-name"><a href="{{ route('product.detail', $product->slug) }}">{{ $product->name }}</a></h3>
+												<h4 class="product-price">{{ number_format($product->price) }} VNĐ
+													{{-- <del class="product-old-price">$990.00</del> --}}
+												</h4>
+												{{-- <div class="product-rating">
+													<i class="fa fa-star"></i>
+													<i class="fa fa-star"></i>
+													<i class="fa fa-star"></i>
+													<i class="fa fa-star"></i>
+													<i class="fa fa-star"></i>
+												</div>
+												<div class="product-btns">
+													<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
+													<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
+													<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+												</div> --}}
+											</div>
+											<div class="add-to-cart">
+
+												{{-- ADD PRODUCT TO CART FORM --}}
+												<form action="{{ route('product.cart.add') }}" method="POST">
+													@csrf
+													@auth
+													<input type="hidden" name="to_cart_product_id"  value="{{ $product->id }}">
+													<input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+													<input type="hidden" name="quantity" value="1">
+													@endauth
+													<button type="submit" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+												</form>
+												
+											</div>
+										</div>
+										<!-- /product -->
+										@endforeach
+									</div>
+									<div id="slick-nav-2" class="products-slick-nav"></div>
+								</div>
+								<!-- /tab -->
+							</div>
+						</div>
+					</div>
+					<!-- /Products tab & slick -->
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /SECTION -->
+
+
 {{-- 
 		<!-- SECTION -->
 		<div class="section">

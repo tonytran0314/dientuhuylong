@@ -5,8 +5,16 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Category;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Redirect;
+
+use App\Http\Requests\Admin\Product\AddProductRequest;
+use App\Http\Requests\Admin\Product\DeleteProductRequest;
+use App\Http\Requests\Admin\Product\EditProductRequest;
+use App\Http\Requests\Admin\Product\HideProductRequest;
+use App\Http\Requests\Admin\Product\RestoreProductRequest;
 
 class ProductController extends Controller
 {
@@ -35,13 +43,15 @@ class ProductController extends Controller
 
     public function hidden() {
         return view('admin.dynamic.products.hidden', [
-            'hiddenProducts' => Product::onlyTrashed()->orderBy('id', 'desc')->paginate(5)
+            'hiddenProducts' => Product::onlyTrashed()->orderBy('id', 'desc')->paginate(5),
+            'prodCount' => Product::onlyTrashed()->count()
         ]);
     }
 
     public function byCategory($category_id){
         return view('admin.dynamic.products.byCategory', [
-            'prodByCate' => Product::where('category_id', $category_id)->orderBy('id', 'desc')->paginate(5)
+            'prodByCate' => Product::where('category_id', $category_id)->orderBy('id', 'desc')->paginate(5),
+            'prodCount' => Product::where('category_id', $category_id)->count()
         ]);
     }
 
@@ -53,52 +63,36 @@ class ProductController extends Controller
 
     // ========================================= POST ========================================= //
 
-    public function deleteProcess(Request $request) {
-        $request->validate([
-            'delete_product_id' => 'required|numeric'
-        ]);
+    public function deleteProcess(DeleteProductRequest $request) {
+        $request->validated($request->all());
 
-        $id = $request->delete_product_id;
+        Product::where('id', $request->delete_product_id)->forceDelete();
 
-        Product::where('id', $id)->forceDelete();
-
-        return redirect(route('product.admin.hidden'))->with('successMessage', 'Đã xóa sản phẩm thành công');
+        return Redirect::route('product.admin.hidden')
+                        ->with('successMessage', 'Đã xóa sản phẩm thành công');
     }
 
-    public function restore(Request $request) {
-        $request->validate([
-            'restore_product_id' => 'required|numeric'
-        ]);
-        $id = $request->restore_product_id;
-        Product::withTrashed()->where('id', $id)->restore();
-        return redirect(route('product.admin.hidden'))->with('successMessage', 'Khôi phục sản phẩm thành công');
+    public function restore(RestoreProductRequest $request) {
+        $request->validated($request->all());
+
+        Product::withTrashed()->where('id', $request->restore_product_id)->restore();
+
+        return Redirect::route('product.admin.hidden')
+                        ->with('successMessage', 'Khôi phục sản phẩm thành công');
     }
 
-    public function hideProcess(Request $request) {
-        $request->validate([
-            'product_id' => 'required|numeric'
-        ]);
-        $id = $request->product_id;
+    public function hideProcess(HideProductRequest $request) {
+        $request->validated($request->all());
 
-        Product::where('id', $id)->delete();
+        Product::where('id', $request->product_id)->delete();
 
-        return redirect(route('product.admin.show'))->with('successMessage', 'Ẩn sản phẩm thành công');
+        return Redirect::route('product.admin.show')
+                        ->with('successMessage', 'Ẩn sản phẩm thành công');
     }
 
-    public function editProcess(Request $request) {
-        $request->validate([
-            'name' => 'required|regex:/^([a-zA-Z0-9ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềếểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\%\x3B\/\.\;\&\(\)\-\+\"\'\d,\s]+)$/',
-            'category' => 'required|numeric',
-            'price' => 'required|numeric',
-            'description' => 'required|regex:/^([a-zA-Z0-9ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềếểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\%\x3B\/\.\&\(\)\-\+\"\'\d,\s]+)$/'
-        ]);
+    public function editProcess(EditProductRequest $request) {
+        $request->validated($request->all());
 
-        $id = $request->id;
-        $name = $request->name;
-        $description = $request->description;
-        $category = $request->category;
-        $slug = Str::slug($request->name);
-        $price = $request->price;
         $image = $request->current_image;
 
         if ($request->hasFile('image')) {
@@ -107,44 +101,34 @@ class ProductController extends Controller
             $request->image->move(public_path('storage'), $image);
         }
         
-        Product::where('id', $id)->update([
-            'name' => $name,
-            'description' => $description,
-            'category_id' => $category,
-            'slug' => $slug,
-            'price' => $price,
+        Product::where('id', $request->id)->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'category_id' => $request->category,
+            'slug' => Str::slug($request->name),
+            'price' => $request->price,
             'image' => $image
         ]);
 
-        return redirect(route('product.admin.show'))->with('successMessage', 'Cập nhật sản phẩm thành công');
+        return Redirect::route('product.admin.show')
+                        ->with('successMessage', 'Cập nhật sản phẩm thành công');
     }
 
-    public function addProcess(Request $request) {
-        $request->validate([
-            'name' => 'required|regex:/^([a-zA-Z0-9ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềếểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\%\x3B\/\.\;\&\(\)\-\+\"\'\d,\s]+)$/',
-            'image' => 'required|image',
-            'category' => 'required|numeric',
-            'price' => 'required|numeric',
-            'description' => 'required|regex:/^([a-zA-Z0-9ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềếểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\%\x3B\/\.\;\&\(\)\-\+\"\'\d,\s]+)$/'
-        ]);
+    public function addProcess(AddProductRequest $request) {
+        $request->validated($request->all());
 
         $extension = $request->file('image')->extension();
         $image = uniqid(). '.' .$extension;
-        $name = $request->name;
-        $description = $request->description;
-        $slug = Str::slug($request->name);
-        $price = $request->price;
-        $category_id = $request->category;
 
         $request->image->move(public_path('storage'), $image);
 
         Product::insert([
-            'name' => $name,
-            'description' => $description,
-            'slug' => $slug,
+            'name' => $request->name,
+            'description' => $request->description,
+            'slug' => Str::slug($request->name),
             'image' => $image,
-            'price' => $price,
-            'category_id' => $category_id
+            'price' => $request->price,
+            'category_id' => $request->category
         ]);
 
         return redirect(route('product.admin.show'))->with('successMessage', 'Thêm sản phẩm thành công');

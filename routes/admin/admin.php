@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProfileController;
 
 Route::middleware(['auth', 'role:admin', 'verified'])->group(function(){
     Route::prefix('admin')->group(function () {
@@ -35,6 +36,15 @@ Route::middleware(['auth', 'role:admin', 'verified'])->group(function(){
                 Route::post('/editProcess', 'editProcess')->name('category.admin.editProcess');
                 Route::post('/deleteProcess', 'deleteProcess')->name('category.admin.deleteProcess');
                 Route::post('/addProcess', 'addProcess')->name('category.admin.addProcess');
+            });
+        });
+
+        Route::prefix('/profile')->group(function () {
+            Route::controller(ProfileController::class)->group(function () {
+                Route::get('/', 'show')->name('profile.admin');
+
+                Route::post('/infoUpdate', 'infoUpdate')->name('profile.admin.infoUpdate');
+                Route::post('/passwordUpdate', 'passwordUpdate')->name('profile.admin.passwordUpdate');
             });
         });
     });

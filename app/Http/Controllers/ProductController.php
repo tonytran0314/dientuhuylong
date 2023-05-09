@@ -87,8 +87,8 @@ class ProductController extends Controller
         ]);
     }
 
-    public function success_order($client_email) {
-        return view('dynamic.product.successOrder', ['client_email' => $client_email]);
+    public function success_order() {
+        return view('dynamic.product.successOrder');
     }
 
 
@@ -117,22 +117,23 @@ class ProductController extends Controller
         $notes = $request->notes;
 
         // send receipt to client email
-        Mail::send(
-            'dynamic.product.email', 
-            [
-                'name' => $fullname,
-                'ttp' => $tp_tinh,
-                'qh' => $quan_huyen,
-                'px' => $phuong_xa,
-                'nr' => $number_road
-            ], 
-            function($email) use ($client_email){
-                $email->subject('Điện tử Huy Long - Cám ơn bạn đã mua sắm cùng chúng tôi');
-                $email->to($client_email);
-            }
-        );
+        // Mail::send(
+        //     'dynamic.product.email', 
+        //     [
+        //         'name' => $fullname,
+        //         'ttp' => $tp_tinh,
+        //         'qh' => $quan_huyen,
+        //         'px' => $phuong_xa,
+        //         'nr' => $number_road
+        //     ], 
+        //     function($email) use ($client_email){
+        //         $email->subject('Điện tử Huy Long - Cám ơn bạn đã mua sắm cùng chúng tôi');
+        //         $email->to($client_email);
+        //     }
+        // );
 
-        return Redirect::route('product.success_order', $client_email);
+        // return Redirect::route('product.success_order', $client_email);
+        return Redirect::route('product.success_order');
 
     }
 }

@@ -27,4 +27,12 @@ class EditCategoryRequest extends FormRequest
                 'regex:/^([a-zA-Z0-9ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềếểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\?\%\x3B\/\.\;\&\(\)\-\+\"\'\d,\s]+)$/']
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Bạn phải nhập tên thể loại',
+            'name.regex' => 'Tên thể loại chứa ký tự không được cho phép'
+        ];
+    }
 }

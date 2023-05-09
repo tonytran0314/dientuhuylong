@@ -31,4 +31,11 @@ class AddCommentRequest extends FormRequest
             'product_slug' => ['required', 'string']
         ];
     }
+
+    public function messages() {
+        return [
+            'content.required' => 'Bạn phải nhập bình luận',
+            'content.regex' => 'Bình luận chứa ký tự không được cho phép'
+        ];
+    }
 }

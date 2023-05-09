@@ -34,4 +34,16 @@ class EditProductRequest extends FormRequest
             ]
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Bạn phải nhập tên sản phẩm',
+            'name.regex' => 'Tên sản phẩm chứa ký tự không được cho phép',
+            'category.required' => 'Bạn phải chọn 1 thể loại cho sản phẩm',
+            'price.required' => 'Bạn phải nhập giá sản phẩm',
+            'description.required' => 'Bạn phải nhập mô tả sản phẩm',
+            'description.regex' => 'Mô tả sản phẩm chứa ký tự không được cho phép'
+        ];
+    }
 }

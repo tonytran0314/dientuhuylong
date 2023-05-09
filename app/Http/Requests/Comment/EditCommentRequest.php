@@ -32,4 +32,11 @@ class EditCommentRequest extends FormRequest
             'comment_id' => ['required', 'numeric']
         ];
     }
+
+    public function messages() {
+        return [
+            'content.required' => 'Bạn phải nhập bình luận',
+            'content.regex' => 'Bình luận chứa ký tự không được cho phép'
+        ];
+    }
 }

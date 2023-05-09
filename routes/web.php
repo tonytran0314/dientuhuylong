@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,6 +16,8 @@
 if (App::environment('production')) {
     URL::forceScheme('https');
 }
+
+// Auth::routes(['verify' => true]);
 
 // =================================== HOME ROUTE =================================== //
 require __DIR__.'/client/home.php';

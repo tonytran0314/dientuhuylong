@@ -73,8 +73,7 @@ class ProductController extends Controller
     }
 
     public function checkout() {
-        $user_id = Auth::user()->id;
-        $productsInCart = User::find($user_id)->products;
+        $productsInCart = User::find(Auth::user()->id)->products;
 
         $total_price = 0;
         foreach($productsInCart as $product) {
@@ -88,8 +87,8 @@ class ProductController extends Controller
         ]);
     }
 
-    public function success_order() {
-        return view('dynamic.product.successOrder');
+    public function success_order($client_email) {
+        return view('dynamic.product.successOrder', ['client_email' => $client_email]);
     }
 
 
@@ -105,38 +104,47 @@ class ProductController extends Controller
         
         $request->validated($request->all());
 
-        ProductUser::where('user_id', Auth::user()->id)->delete();
-
         // variables assignment
-        // $fullname = $request->fullname;
-        // $client_email = $request->email;
-        // $phone_number = $request->phone_number;
+        $fullname = $request->fullname;
+        $client_email = $request->email;
+        $phone_number = $request->phone_number;
 
-        // $tp_tinh = TpTinh::where('matp', $request->tp_tinh)->firstOrFail();
-        // $quan_huyen = QuanHuyen::where('maqh', $request->quan_huyen)->firstOrFail();
-        // $phuong_xa = XaPhuongThitran::where('xaid', $request->phuong_xa)->firstOrFail();
-        // $number_road = $request->number_road;
+        $tp_tinh = TpTinh::where('matp', $request->tp_tinh)->firstOrFail();
+        $quan_huyen = QuanHuyen::where('maqh', $request->quan_huyen)->firstOrFail();
+        $phuong_xa = XaPhuongThitran::where('xaid', $request->phuong_xa)->firstOrFail();
+        $number_road = $request->number_road;
 
-        // $notes = $request->notes;
+        $notes = $request->notes;
+
+        // items in cart 
+        $productsInCart = User::find(Auth::user()->id)->products;
+
+        $total_price = 0;
+        foreach($productsInCart as $product) {
+            $total_price += ($product->price * $product->pivot->quantity);
+        }
 
         // send receipt to client email
-        // Mail::send(
-        //     'dynamic.product.email', 
-        //     [
-        //         'name' => $fullname,
-        //         'ttp' => $tp_tinh,
-        //         'qh' => $quan_huyen,
-        //         'px' => $phuong_xa,
-        //         'nr' => $number_road
-        //     ], 
-        //     function($email) use ($client_email){
-        //         $email->subject('Điện tử Huy Long - Cám ơn bạn đã mua sắm cùng chúng tôi');
-        //         $email->to($client_email);
-        //     }
-        // );
+        Mail::send(
+            'dynamic.product.email', 
+            [
+                'name' => $fullname,
+                'ttp' => $tp_tinh,
+                'qh' => $quan_huyen,
+                'px' => $phuong_xa,
+                'nr' => $number_road,
+                'total' => $total_price,
+                'prodsInCart' => $productsInCart
+            ], 
+            function($email) use ($client_email){
+                $email->subject('Điện tử Huy Long - Cám ơn bạn đã mua sắm cùng chúng tôi');
+                $email->to($client_email);
+            }
+        );
+        
+        // ProductUser::where('user_id', Auth::user()->id)->delete();
 
-        // return Redirect::route('product.success_order', $client_email);
-        return Redirect::route('product.success_order');
+        return Redirect::route('product.success_order', $client_email);
 
     }
 }

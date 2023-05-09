@@ -29,11 +29,23 @@
 							</div>
 							<div class="form-group">
 								<label for="fullname">Họ và tên <span style="color:red;">*</span></label>
-								<input class="input" type="text" name="fullname" id="fullname" required>
+								<input 
+									class="input" 
+									type="text" 
+									name="fullname" 
+									id="fullname" 
+									value="{{ Auth::user()->name }}"
+									required>
 							</div>
 							<div class="form-group">
 								<label for="email">Email <span style="color:red;">*</span></label>
-								<input class="input" type="text" name="email" id="email" required>
+								<input 
+									class="input" 
+									type="text" 
+									name="email" 
+									id="email" 
+									value="{{ Auth::user()->email }}"
+									required>
 							</div>
 							<div class="form-group">
 								<label for="phone_number">Số điện thoại <span style="color:red;">*</span></label>
@@ -64,7 +76,7 @@
 								<label for="number_road">Số nhà và tên đường <span style="color:red;">*</span></label>
 								<input class="input" type="text" name="number_road" id="number_road" required>
 							</div>
-							{{-- <div class="form-group">  <div class="input-checkbox">
+							<!-- {{-- <div class="form-group">  <div class="input-checkbox">
 									<input type="checkbox" id="create-account">
 									<label for="create-account">
 										<span></span>
@@ -74,7 +86,7 @@
 										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
 										<input class="input" type="password" name="password" placeholder="Enter Your Password">
 									</div>
-								</div> </div> --}}
+								</div> </div> --}} -->
 						</div>
 						<!-- /Billing Details -->
 {{-- 

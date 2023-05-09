@@ -9,4 +9,4 @@ Route::prefix('comment')->group(function(){
         Route::post('/edit', 'edit')->name('comment.edit');
         Route::post('/delete', 'delete')->name('comment.delete');
     });
-});
+})->middleware(['auth', 'verified']);

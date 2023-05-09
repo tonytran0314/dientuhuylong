@@ -29,4 +29,18 @@ class UpdateInformationRequest extends FormRequest
             'image' => ['image']
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Bạn phải nhập họ và tên',
+            'name.string' => 'Họ và tên chứa ký tự không được cho phép',
+            'name.max' => 'Họ và tên không thể vượt quá 255 ký tự',
+            'email.required' => 'Bạn phải nhập email',
+            'email.email' => 'Bạn phải nhập email hợp lệ',
+            'email.max' => 'Email không thể vượt quá 255 ký tự',
+            'email.unique' => 'Email đã tồn tại',
+            'image.image' => 'Bạn phải chọn 1 hình ảnh hợp lệ'
+        ];
+    }
 }

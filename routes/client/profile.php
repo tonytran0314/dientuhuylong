@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::controller(ProfileController::class)->group(function(){
         Route::get('/profile', 'edit')->name('profile.edit');
         Route::post('/profile/info', 'update_info')->name('profile.update.info');

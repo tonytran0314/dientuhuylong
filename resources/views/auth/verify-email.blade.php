@@ -1,11 +1,11 @@
 <x-guest-layout>
     <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
-        {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
+        {{ __('Xin cám ơn bạn đã đăng ký tài khoản tại Điện tử Huy Long! Trước khi bắt đầu, bạn vui lòng xác nhận email bằng cách bấm Xác nhận trong email bạn vừa nhận được. Nếu bạn không nhận được email nào chúng tôi sẽ gửi lại một email xác nhận khác.') }}
     </div>
 
     @if (session('status') == 'verification-link-sent')
         <div class="mb-4 font-medium text-sm text-green-600 dark:text-green-400">
-            {{ __('A new verification link has been sent to the email address you provided during registration.') }}
+            {{ __('Một liên kết xác minh mới đã được gửi đến địa chỉ email bạn đã cung cấp trong quá trình đăng ký.') }}
         </div>
     @endif
 
@@ -15,7 +15,7 @@
 
             <div>
                 <x-primary-button>
-                    {{ __('Resend Verification Email') }}
+                    {{ __('Gửi lại email xác nhận') }}
                 </x-primary-button>
             </div>
         </form>

@@ -31,4 +31,16 @@ class UpdateInformationRequest extends FormRequest
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($this->user_id)]
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'fullname.required' => 'Bạn phải nhập họ và tên',
+            'fullname.regex' => 'Họ và tên chứa ký tự không được cho phép',
+            'email.required' => 'Bạn phải nhập email',
+            'email.email' => 'Bạn phải nhập email hợp lệ',
+            'email.max' => 'Email không thể vượt quá 255 ký tự',
+            'email.unique' => 'Email đã tồn tại'
+        ];
+    }
 }

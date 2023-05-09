@@ -29,7 +29,13 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        if (Auth::user()->email_verified_at == NULL) {
+            return redirect(route('verification.notice'));
+        }
+        else {
+            return redirect()->intended(RouteServiceProvider::HOME);
+        }
+        
     }
 
     /**

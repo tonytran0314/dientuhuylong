@@ -87,7 +87,16 @@
 									<a href="{{ route('product.cart.show') }}">
 										<i class="fa fa-shopping-cart"></i>
 										<span>Giỏ hàng</span>
-										{{-- <div class="qty">3</div> --}}
+
+
+										@auth
+										<!-- cái này nhìn vừa ảo vừa tà :)) 
+										nhưng cái này chỉ nên là phương án tạm thời nên thay bằng ajax -->
+										@php($num_of_item = App\Models\ProductUser::where('user_id', Auth::user()->id)->sum('quantity'))
+										<div class="qty">{{ $num_of_item }}</div>
+										@endauth
+
+
 									</a>
 									{{-- <div class="cart-dropdown">
 										<div class="cart-list">

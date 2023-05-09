@@ -19,7 +19,7 @@ class CartController extends Controller
     public function show() {
         $user_id = Auth::user()->id;
         $productsInCart = User::find($user_id)->products;
-        $productCount = $productsInCart->count();
+        $productCount = ProductUser::where('user_id', $user_id)->sum('quantity');
         
         $total_price = 0;
         foreach($productsInCart as $product) {

@@ -102,11 +102,11 @@
                     </tr>
                     <tr>
                         <th>Trạng thái thanh toán</th>
-                        <td>{{ $detail->payment_status->status }}</td>
+                        <td class="alert-{{ $paymentColor }}">{{ $detail->payment_status->status }}</td>
                     </tr>
                     <tr>
                         <th>Trạng thái đơn hàng</th>
-                        <td>{{ $detail->status->status_name }}</td>
+                        <td class="alert-{{ $orderColor }}">{{ $detail->status->status_name }}</td>
                     </tr>
                     <tr>
                         <th>Địa chỉ giao hàng</th>

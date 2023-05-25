@@ -82,18 +82,34 @@ class OrderController extends Controller
         $orderDetail = Order::find($order_id);
         $items = $orderDetail->items_in_order;
         
+        $paymentColor = ($orderDetail->payment_status_id == 14) ? 'success' : 'warning';
+        $orderColor = ($orderDetail->status_id == 14) ? 'success' : 'warning';
+
         return view('admin.dynamic.order.show', [
             'detail' => $orderDetail,
-            'items' => $items 
+            'items' => $items,
+            'paymentColor' => $paymentColor,
+            'orderColor' => $orderColor
         ]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($order_id)
     {
-        //
+        $orderDetail = Order::find($order_id);
+        $items = $orderDetail->items_in_order;
+
+        $paymentColor = ($orderDetail->payment_status_id == 14) ? 'success' : 'warning';
+        $orderColor = ($orderDetail->status_id == 14 || $orderDetail->status_id == 24) ? 'success' : 'warning';
+        
+        return view('dynamic.order.show', [
+            'detail' => $orderDetail,
+            'items' => $items,
+            'paymentColor' => $paymentColor,
+            'orderColor' => $orderColor
+        ]);
     }
 
     public function confirm(Request $request) {

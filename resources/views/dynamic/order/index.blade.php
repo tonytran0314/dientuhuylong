@@ -31,7 +31,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 @if (count($incompletedOrders))
-                                    <table class="table">
+                                    <table class="table text-center">
                                         <thead>
                                             <tr>
                                                 <th>Mã đơn hàng</th>
@@ -44,13 +44,30 @@
                                         </thead>
                                         <tbody>
                                             @foreach($incompletedOrders as $order)
+
+                                                <!-- Payment status color -->
+                                                @php
+                                                    $paymentColor = 'warning';
+                                                    if ($order->payment_status_id == 14) {
+                                                        $paymentColor = 'success';
+                                                    }
+                                                @endphp
+
+                                                <!-- Order status color -->
+                                                @php
+                                                    $orderColor = 'warning';
+                                                    if ($order->status_id == 14) {
+                                                        $orderColor = 'success';
+                                                    }
+                                                @endphp
+
                                                 <tr>
-                                                    <td>{{ $order->id }}</td>
+                                                    <td><a href="{{ route('order.show', $order->id) }}">{{ $order->id }}</a></td>
                                                     <td>{{ number_format($order->Amount) }}</td>
                                                     <td>{{ $order->order_time }}</td>
                                                     <td>{{ $order->payment_method->method }}</td>
-                                                    <td>{{ $order->payment_status->status }}</td>
-                                                    <td>{{ $order->status->status_name }}</td>
+                                                    <td class="alert-{{ $paymentColor }}">{{ $order->payment_status->status }}</td>
+                                                    <td class="alert-{{ $orderColor }}">{{ $order->status->status_name }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -68,7 +85,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 @if (count($completedOrders))
-                                    <table class="table">
+                                    <table class="table text-center">
                                         <thead>
                                             <tr>
                                                 <th>Mã đơn hàng</th>
@@ -82,12 +99,12 @@
                                         <tbody>
                                             @foreach($completedOrders as $order)
                                                 <tr>
-                                                    <td>{{ $order->id }}</td>
+                                                    <td><a href="{{ route('order.show', $order->id) }}">{{ $order->id }}</a></td>
                                                     <td>{{ number_format($order->Amount) }}</td>
                                                     <td>{{ $order->order_time }}</td>
                                                     <td>{{ $order->payment_method->method }}</td>
-                                                    <td>{{ $order->payment_status->status }}</td>
-                                                    <td>{{ $order->status->status_name }}</td>
+                                                    <td class="alert-success">{{ $order->payment_status->status }}</td>
+                                                    <td class="alert-success">{{ $order->status->status_name }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -105,7 +122,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 @if (count($cancelledOrders))
-                                    <table class="table">
+                                    <table class="table text-center">
                                         <thead>
                                             <tr>
                                                 <th>Mã đơn hàng</th>
@@ -122,7 +139,7 @@
                                                     <td>{{ number_format($order->Amount) }}</td>
                                                     <td>{{ $order->order_time }}</td>
                                                     <td>{{ $order->payment_method->method }}</td>
-                                                    <td>{{ $order->status->status_name }}</td>
+                                                    <td class="alert-danger">{{ $order->status->status_name }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>

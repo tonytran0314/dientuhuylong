@@ -42,22 +42,10 @@
                         </thead>
                         <tbody>
                             @foreach($orders as $order)
-                                
-                                <!-- Payment status color -->
+                            
                                 @php
-                                    $paymentColor = 'warning';
-                                    if ($order->payment_status_id == 14) {
-                                        $paymentColor = 'success';
-                                    }
-                                @endphp
-
-
-                                <!-- Order status color -->
-                                @php
-                                    $orderColor = 'warning';
-                                    if ($order->status_id == 14) {
-                                        $orderColor = 'success';
-                                    }
+                                    $paymentColor = ($order->payment_status_id == 14) ? 'success' : 'warning';
+                                    $orderColor = ($order->status_id == 14) ? 'success' : 'warning';
                                 @endphp
 
                                 <tr>

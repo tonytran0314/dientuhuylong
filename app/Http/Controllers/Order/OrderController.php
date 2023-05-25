@@ -3,7 +3,12 @@
 namespace App\Http\Controllers\Order;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+
+
+use App\Models\Order;
+
 
 class OrderController extends Controller
 {
@@ -12,7 +17,12 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+
+        $orders = Order::where('user_id', Auth::user()->id)->get();
+        
+        return view('dynamic.order.index', [
+            'orders' => $orders
+        ]);
     }
 
     /**

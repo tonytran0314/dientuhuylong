@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Checkout;
 
 use Illuminate\Support\Str;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 use App\Models\User;
 use App\Models\TpTinh;
@@ -29,12 +30,18 @@ class CheckoutController extends Controller
 
     public function storeUserInformation() {
 
-        ProductOrder::insert([
-            'order_id' => Str::uuid(),
-            'product_id' => 2,
-            'quantity' => 6
+        $uuid = Str::uuid();
+        $productsInCart = User::find(Auth::user()->id)->products;
 
-        ]);
+        Session::put('uuid', $uuid);
+
+        foreach($productsInCart as $product) {
+            ProductOrder::insert([
+                'order_id' => $uuid,
+                'product_id' => $product->id,
+                'quantity' => $product->pivot->quantity
+            ]);
+        }   
 
         return view('dynamic.checkout.paymentMethod');
     }

@@ -31,6 +31,10 @@ require __DIR__.'/client/product.php';
 require __DIR__.'/client/checkout.php';
 
 
+// =================================== CHECKOUT ROUTE =================================== //
+require __DIR__.'/client/order.php';
+
+
 // =================================== COMMENT ROUTE =================================== //
 require __DIR__.'/client/comment.php';
 

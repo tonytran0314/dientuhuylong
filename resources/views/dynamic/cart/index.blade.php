@@ -9,6 +9,7 @@
         <div class="container">
             <!-- row -->
             <div class="row">
+                <a href="{{ route('orders.index') }}" class="btn btn-primary">Theo dõi đơn hàng</a>
                 @if($productCount > 0)
                 {{-- PAGE TITLE --}}
                 <div class="col-md-12">

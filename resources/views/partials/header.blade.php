@@ -84,7 +84,7 @@
 								<!-- Cart -->
 								<div class="dropdown">
 									{{-- <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"> --}}
-									<a href="{{ route('product.cart.show') }}">
+									<a href="{{ route('cart.index') }}">
 										<i class="fa fa-shopping-cart"></i>
 										<span>Giỏ hàng</span>
 

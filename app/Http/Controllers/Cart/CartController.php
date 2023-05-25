@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Cart;
+
+use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +18,7 @@ use App\Http\Requests\Cart\RemoveFromCartRequest;
 class CartController extends Controller
 {
     // ========================================= GET ========================================= //
-    public function show() {
+    public function index() {
         $user_id = Auth::user()->id;
         $productsInCart = User::find($user_id)->products;
         $productCount = ProductUser::where('user_id', $user_id)->sum('quantity');
@@ -26,7 +28,7 @@ class CartController extends Controller
             $total_price += ($product->price * $product->pivot->quantity);
         }
 
-        return view('dynamic.product.cart', [
+        return view('dynamic.cart.index', [
             'productsInCart' => $productsInCart,
             'productCount' => $productCount,
             'totalPrice' => $total_price
@@ -84,3 +86,5 @@ class CartController extends Controller
         return Redirect::route('product.cart.show');
     }
 }
+
+

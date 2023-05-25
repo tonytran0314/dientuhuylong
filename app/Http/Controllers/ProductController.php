@@ -80,7 +80,7 @@ class ProductController extends Controller
             $total_price += ($product->price * $product->pivot->quantity);
         }
 
-        return view('dynamic.product.checkout', [
+        return view('dynamic.checkout.checkout', [
             'productsInCart' => $productsInCart,
             'totalPrice' => $total_price,
             'tinh_tp' => TpTinh::all()

@@ -76,7 +76,7 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Người dùng
+                Đơn hàng
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
@@ -85,8 +85,16 @@
                  {{-- data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages" --}}
                     >
-                    <i class="fas fa-fw fa-user"></i>
-                    <span>Khách hàng</span>
+                    <i class="fa fa-receipt"></i>
+                    <span>Đơn đang xử lý</span>
+                </a>
+                <a class="nav-link collapsed" href="#">
+                    <i class="fa fa-check"></i>
+                    <span>Đơn đã hoàn thành</span>
+                </a>
+                <a class="nav-link collapsed" href="#">
+                    <i class="fa fa-times"></i>
+                    <span>Đơn đã hủy</span>
                 </a>
                 {{-- <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">

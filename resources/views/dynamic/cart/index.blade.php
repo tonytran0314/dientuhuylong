@@ -71,7 +71,7 @@
                         <h3>{{ number_format($totalPrice) }} VNĐ</h3>
                     </div>
                     <div class="col-md-12 checkout-button-container">
-                        <a href="{{ route('product.checkout') }}" class="btn btn-success">Thanh toán</a>
+                        <a href="{{ route('checkout') }}" class="btn btn-success">Thanh toán</a>
                     </div>
                 </div>
                 @else

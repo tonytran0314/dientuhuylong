@@ -20,7 +20,7 @@
 					</div>
 				@endif
 					<div class="col-md-7">
-                        <form action="{{ route('product.checkoutProcess') }}" method="POST">
+                        <form action="{{ route('checkout.storeUserInformation') }}" method="POST">
                             @csrf
 						<!-- Billing Details -->
 						<div class="billing-details">

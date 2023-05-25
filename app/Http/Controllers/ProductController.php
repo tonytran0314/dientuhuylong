@@ -72,21 +72,6 @@ class ProductController extends Controller
         ]);
     }
 
-    public function checkout() {
-        $productsInCart = User::find(Auth::user()->id)->products;
-
-        $total_price = 0;
-        foreach($productsInCart as $product) {
-            $total_price += ($product->price * $product->pivot->quantity);
-        }
-
-        return view('dynamic.checkout.checkout', [
-            'productsInCart' => $productsInCart,
-            'totalPrice' => $total_price,
-            'tinh_tp' => TpTinh::all()
-        ]);
-    }
-
     public function success_order($client_email) {
         return view('dynamic.product.successOrder', ['client_email' => $client_email]);
     }
@@ -126,7 +111,7 @@ class ProductController extends Controller
 
         // send receipt to client email
         Mail::send(
-            'dynamic.product.email', 
+            'dynamic.email.email', 
             [
                 'name' => $fullname,
                 'ttp' => $tp_tinh,

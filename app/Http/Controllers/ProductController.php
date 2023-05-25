@@ -18,7 +18,6 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 
 use App\Http\Requests\SearchRequest;
-use App\Http\Requests\CheckoutRequest;
 
 class ProductController extends Controller
 {
@@ -85,7 +84,7 @@ class ProductController extends Controller
         return Redirect::route('product.searchResult', $request->search_keyword);
     }
 
-    public function checkoutProcess(CheckoutRequest $request) {
+    public function checkoutProcess(Request $request) {
         
         $request->validated($request->all());
 
@@ -127,7 +126,7 @@ class ProductController extends Controller
             }
         );
         
-        // ProductUser::where('user_id', Auth::user()->id)->delete();
+        
 
         return Redirect::route('product.success_order', $client_email);
 

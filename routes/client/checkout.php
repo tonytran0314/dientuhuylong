@@ -9,6 +9,7 @@ Route::prefix('checkout')->group(function () {
     Route::middleware(['auth', 'verified'])->group(function () {
         Route::controller(CheckoutController::class)->group(function () {
             Route::get('/', 'show')->name('checkout');
+            Route::get('/result', 'result')->name('checkout.result');
 
             Route::post('/payment_method', 'storeUserInformation')->name('checkout.storeUserInformation');
         });

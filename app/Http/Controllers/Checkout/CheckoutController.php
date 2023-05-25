@@ -11,6 +11,8 @@ use App\Models\User;
 use App\Models\TpTinh;
 use App\Models\ProductOrder;
 
+use App\Http\Requests\CheckoutRequest;
+
 class CheckoutController extends Controller
 {
     public function show() {
@@ -28,7 +30,9 @@ class CheckoutController extends Controller
         ]);
     }
 
-    public function storeUserInformation() {
+    public function storeUserInformation(CheckoutRequest $request) {
+
+        $request->validated($request->all());
 
         $uuid = Str::uuid();
         $productsInCart = User::find(Auth::user()->id)->products;
@@ -44,5 +48,9 @@ class CheckoutController extends Controller
         }   
 
         return view('dynamic.checkout.paymentMethod');
+    }
+
+    public function result() {
+        return view('dynamic.checkout.result');
     }
 }

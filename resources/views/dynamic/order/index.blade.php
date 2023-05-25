@@ -112,7 +112,6 @@
                                                 <th>Tổng cộng</th>
                                                 <th>Ngày đặt hàng</th>
                                                 <th>Phương thức thanh toán</th>
-                                                <th>Trạng thái thanh toán</th>
                                                 <th>Trạng thái đơn hàng</th>
                                             </tr>
                                         </thead>
@@ -123,7 +122,6 @@
                                                     <td>{{ number_format($order->Amount) }}</td>
                                                     <td>{{ $order->order_time }}</td>
                                                     <td>{{ $order->payment_method->method }}</td>
-                                                    <td>{{ $order->payment_status->status }}</td>
                                                     <td>{{ $order->status->status_name }}</td>
                                                 </tr>
                                             @endforeach

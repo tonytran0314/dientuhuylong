@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Order;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 
 use App\Models\Order;
@@ -18,17 +19,21 @@ class OrderController extends Controller
     public function index()
     {
 
-        $incompletedOrders = Order::where('user_id', Auth::user()->id)->get();
+        $incompletedOrders = Order::where([
+            ['user_id', Auth::user()->id],
+            ['status_id', '<>', 24],
+            ['status_id', '<>', 34]
+        ])->orderBy('order_time', 'desc')->get();
 
         $completedOrders = Order::where([
             ['user_id', Auth::user()->id],
             ['status_id', 24]
-        ])->get();
+        ])->orderBy('order_time', 'desc')->get();
 
         $cancelledOrders = Order::where([
             ['user_id', Auth::user()->id],
             ['status_id', 34]
-        ])->get();
+        ])->orderBy('order_time', 'desc')->get();
         
         return view('dynamic.order.index', [
             'incompletedOrders' => $incompletedOrders,
@@ -37,20 +42,50 @@ class OrderController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+    public function incompletedOrders() {
+
+        $orders = Order::where([
+            ['user_id', Auth::user()->id],
+            ['status_id', '<>', 24],
+            ['status_id', '<>', 34]
+        ])->orderBy('order_time', 'desc')->get();
+
+        return view('admin.dynamic.order.incompleted', [
+            'orders' => $orders
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+    public function completedOrders() {
+        $completedOrders = Order::where([
+            ['user_id', Auth::user()->id],
+            ['status_id', 24]
+        ])->orderBy('order_time', 'desc')->get();
+
+        return view('admin.dynamic.order.completed', [
+            'completedOrders' => $completedOrders
+        ]);
+
+    }
+
+    public function cancelledOrders() {
+        $cancelledOrders = Order::where([
+            ['user_id', Auth::user()->id],
+            ['status_id', 34]
+        ])->orderBy('order_time', 'desc')->get();
+
+        return view('admin.dynamic.order.cancelled', [
+            'cancelledOrders' => $cancelledOrders
+        ]);
+    }
+
+    public function show_admin($order_id) {
+        $orderDetail = Order::find($order_id);
+        $items = $orderDetail->items_in_order;
+        
+        return view('admin.dynamic.order.show', [
+            'detail' => $orderDetail,
+            'items' => $items 
+        ]);
     }
 
     /**
@@ -61,27 +96,31 @@ class OrderController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+    public function confirm(Request $request) {
+
+        Order::where('id', $request->order_id)->update(['status_id' => 14]);
+
+        return Redirect::back();
+    
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
+    public function complete(Request $request) {
+
+        Order::where('id', $request->order_id)->update([
+            'status_id' => 24,
+            'payment_status_id' => 14
+        ]);
+
+        return Redirect::back();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        Order::where('id', $request->order_id)->update(['status_id' => 34]);
+
+        return Redirect::route('admin.orders.incompleted');
     }
 }

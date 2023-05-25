@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Order\OrderController;
 
 Route::middleware(['auth', 'role:admin', 'verified'])->group(function(){
     Route::prefix('admin')->group(function () {
@@ -45,6 +46,19 @@ Route::middleware(['auth', 'role:admin', 'verified'])->group(function(){
 
                 Route::post('/infoUpdate', 'infoUpdate')->name('profile.admin.infoUpdate');
                 Route::post('/passwordUpdate', 'passwordUpdate')->name('profile.admin.passwordUpdate');
+            });
+        });
+
+        Route::prefix('/orders')->group(function () {
+            Route::controller(OrderController::class)->group(function () {
+                Route::get('/', 'incompletedOrders')->name('admin.orders.incompleted');
+                Route::get('/completed', 'completedOrders')->name('admin.orders.completed');
+                Route::get('/cancelled', 'cancelledOrders')->name('admin.orders.cancelled');
+                Route::get('/{order_id}', 'show_admin')->name('admin.order.detail');
+
+                Route::post('/confirm', 'confirm')->name('admin.order.confirm');
+                Route::post('/destroy', 'destroy')->name('admin.order.destroy');
+                Route::post('/complete', 'complete')->name('admin.order.complete');
             });
         });
     });

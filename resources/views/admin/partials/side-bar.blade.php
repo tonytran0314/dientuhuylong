@@ -81,18 +81,18 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#"
+                <a class="nav-link collapsed" href="{{ route('admin.orders.incompleted') }}"
                  {{-- data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages" --}}
                     >
                     <i class="fa fa-receipt"></i>
                     <span>Đơn đang xử lý</span>
                 </a>
-                <a class="nav-link collapsed" href="#">
+                <a class="nav-link collapsed" href="{{ route('admin.orders.completed') }}">
                     <i class="fa fa-check"></i>
                     <span>Đơn đã hoàn thành</span>
                 </a>
-                <a class="nav-link collapsed" href="#">
+                <a class="nav-link collapsed" href="{{ route('admin.orders.cancelled') }}">
                     <i class="fa fa-times"></i>
                     <span>Đơn đã hủy</span>
                 </a>

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Redirect;
 
 use App\Models\Order;
 use App\Models\User;
+use App\Models\ProductUser;
 
 class CODController extends Controller
 {
@@ -31,6 +32,8 @@ class CODController extends Controller
             'payment_status_id' => 4,
         ]);
 
-        // return Redirect::route('');
+        ProductUser::where('user_id', Auth::user()->id)->delete();
+
+        return Redirect::route('checkout.result');
     }
 }

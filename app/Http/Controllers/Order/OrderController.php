@@ -18,10 +18,22 @@ class OrderController extends Controller
     public function index()
     {
 
-        $orders = Order::where('user_id', Auth::user()->id)->get();
+        $incompletedOrders = Order::where('user_id', Auth::user()->id)->get();
+
+        $completedOrders = Order::where([
+            ['user_id', Auth::user()->id],
+            ['status_id', 24]
+        ])->get();
+
+        $cancelledOrders = Order::where([
+            ['user_id', Auth::user()->id],
+            ['status_id', 34]
+        ])->get();
         
         return view('dynamic.order.index', [
-            'orders' => $orders
+            'incompletedOrders' => $incompletedOrders,
+            'completedOrders' => $completedOrders,
+            'cancelledOrders' => $cancelledOrders
         ]);
     }
 

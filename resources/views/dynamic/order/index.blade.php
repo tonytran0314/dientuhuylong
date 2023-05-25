@@ -30,30 +30,34 @@
                     <div id="tab1" class="tab-pane fade in active">
                         <div class="row">
                             <div class="col-md-12">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Mã đơn hàng</th>
-                                            <th>Tổng cộng</th>
-                                            <th>Ngày đặt hàng</th>
-                                            <th>Phương thức thanh toán</th>
-                                            <th>Trạng thái thanh toán</th>
-                                            <th>Trạng thái đơn hàng</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($orders as $order)
+                                @if (count($incompletedOrders))
+                                    <table class="table">
+                                        <thead>
                                             <tr>
-                                                <td>{{ $order->id }}</td>
-                                                <td>{{ number_format($order->Amount) }}</td>
-                                                <td>{{ $order->order_time }}</td>
-                                                <td>{{ $order->payment_method->method }}</td>
-                                                <td>{{ $order->payment_status->status }}</td>
-                                                <td>{{ $order->status->status_name }}</td>
+                                                <th>Mã đơn hàng</th>
+                                                <th>Tổng cộng</th>
+                                                <th>Ngày đặt hàng</th>
+                                                <th>Phương thức thanh toán</th>
+                                                <th>Trạng thái thanh toán</th>
+                                                <th>Trạng thái đơn hàng</th>
                                             </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($incompletedOrders as $order)
+                                                <tr>
+                                                    <td>{{ $order->id }}</td>
+                                                    <td>{{ number_format($order->Amount) }}</td>
+                                                    <td>{{ $order->order_time }}</td>
+                                                    <td>{{ $order->payment_method->method }}</td>
+                                                    <td>{{ $order->payment_status->status }}</td>
+                                                    <td>{{ $order->status->status_name }}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                @else
+                                    <p>Hiện chưa có đơn nào</p>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -63,7 +67,34 @@
                     <div id="tab2" class="tab-pane fade in">
                         <div class="row">
                             <div class="col-md-12">
-                                
+                                @if (count($completedOrders))
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Mã đơn hàng</th>
+                                                <th>Tổng cộng</th>
+                                                <th>Ngày đặt hàng</th>
+                                                <th>Phương thức thanh toán</th>
+                                                <th>Trạng thái thanh toán</th>
+                                                <th>Trạng thái đơn hàng</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($completedOrders as $order)
+                                                <tr>
+                                                    <td>{{ $order->id }}</td>
+                                                    <td>{{ number_format($order->Amount) }}</td>
+                                                    <td>{{ $order->order_time }}</td>
+                                                    <td>{{ $order->payment_method->method }}</td>
+                                                    <td>{{ $order->payment_status->status }}</td>
+                                                    <td>{{ $order->status->status_name }}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                @else
+                                    <p>Hiện chưa có đơn nào</p>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -73,7 +104,34 @@
                     <div id="tab3" class="tab-pane fade in">
                         <div class="row">
                             <div class="col-md-12">
-                                
+                                @if (count($cancelledOrders))
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Mã đơn hàng</th>
+                                                <th>Tổng cộng</th>
+                                                <th>Ngày đặt hàng</th>
+                                                <th>Phương thức thanh toán</th>
+                                                <th>Trạng thái thanh toán</th>
+                                                <th>Trạng thái đơn hàng</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($cancelledOrders as $order)
+                                                <tr>
+                                                    <td>{{ $order->id }}</td>
+                                                    <td>{{ number_format($order->Amount) }}</td>
+                                                    <td>{{ $order->order_time }}</td>
+                                                    <td>{{ $order->payment_method->method }}</td>
+                                                    <td>{{ $order->payment_status->status }}</td>
+                                                    <td>{{ $order->status->status_name }}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                @else
+                                    <p>Hiện chưa có đơn nào</p>
+                                @endif
                             </div>
                         </div>
                     </div>

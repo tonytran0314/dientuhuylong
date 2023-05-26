@@ -14,22 +14,14 @@ use App\Models\ProductUser;
 class CODController extends Controller
 {
     public function store(){
-
-        $productsInCart = User::find(Auth::user()->id)->products;
-        
-        $total_price = 0;
-        foreach($productsInCart as $product) {
-            $total_price += ($product->price * $product->pivot->quantity);
-        }
-
         Order::insert([
             'id' => Session::get('uuid'),
-            'Amount' => $total_price,
+            'Amount' => Session::get('Amount'),
             'user_id' => Auth::user()->id,
             'status_id' => 4,
             'order_time' => date("Y-m-d H:i:s"),
             'payment_method_id' => 4,
-            'payment_status_id' => 4,
+            'payment_status_id' => 0,
         ]);
 
         ProductUser::where('user_id', Auth::user()->id)->delete();

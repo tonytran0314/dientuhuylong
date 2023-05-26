@@ -37,7 +37,13 @@ class CheckoutController extends Controller
         $uuid = Str::uuid();
         $productsInCart = User::find(Auth::user()->id)->products;
 
+        $total_price = 0;
+        foreach($productsInCart as $product) {
+            $total_price += ($product->price * $product->pivot->quantity);
+        }
+
         Session::put('uuid', $uuid);
+        Session::put('Amount', $total_price);
 
         foreach($productsInCart as $product) {
             ProductOrder::insert([

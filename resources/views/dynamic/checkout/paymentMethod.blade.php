@@ -15,7 +15,7 @@
             <br>
             <form action="{{ route('payment.vnpay') }}" method="POST">
                 @csrf
-                <button name="" class="btn btn-primary">Thanh toán VNPay</button>
+                <button type="submit" name="redirect" class="btn btn-primary">Thanh toán VNPay</button>
             </form>
         </div>
     </div>

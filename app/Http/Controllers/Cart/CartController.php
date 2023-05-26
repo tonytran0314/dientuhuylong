@@ -75,7 +75,7 @@ class CartController extends Controller
 
         $cart_item->save();
         
-        return Redirect::route('product.cart.show');
+        return Redirect::route('cart.index');
     }
 
     public function remove(RemoveFromCartRequest $request) {
@@ -83,7 +83,7 @@ class CartController extends Controller
 
         ProductUser::where('id', $request->remove_product_user_id)->forceDelete();
 
-        return Redirect::route('product.cart.show');
+        return Redirect::route('cart.index');
     }
 }
 

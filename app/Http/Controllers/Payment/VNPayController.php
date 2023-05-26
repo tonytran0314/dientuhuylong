@@ -7,5 +7,7 @@ use Illuminate\Http\Request;
 
 class VNPayController extends Controller
 {
-    //
+    public function store() {
+        return 'vnpay payment method';
+    }
 }

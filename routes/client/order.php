@@ -8,6 +8,8 @@ Route::prefix('orders')->group(function () {
         Route::controller(OrderController::class)->group(function () {
             Route::get('/', 'index')->name('orders.index');
             Route::get('/{order_id}', 'show')->middleware(['order.check'])->name('order.show');
+
+            Route::post('/destroy', 'destroy')->name('order.destroy');
         });
     });
 });

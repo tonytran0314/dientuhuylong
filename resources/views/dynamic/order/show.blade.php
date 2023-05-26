@@ -80,6 +80,39 @@
                         </tr>
                     </tbody>
                 </table>
+                @if ($detail->status_id == 4)  
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-danger pull-right" data-toggle="modal" data-target="#exampleModal">
+                        Hủy đơn hàng
+                    </button>
+                    <!-- / Button trigger modal -->
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">HỦY ĐƠN HÀNG</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Bạn có chắc muốn hủy đơn hàng này không ? 
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                    <form action="{{ route('order.destroy') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="order_id" value="{{ $detail->id }}">
+                                        <button type="submit" class="btn btn-danger">Xác nhận hủy đơn hàng</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- / Modal -->
+                @endif    
             </div>
         </div>
     </div>

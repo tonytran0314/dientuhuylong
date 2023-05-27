@@ -168,7 +168,7 @@ class OrderController extends Controller
                 $txnData = callAPI_auth("POST", $apiUrl, json_encode($ispTxnRequest));
                 $ispTxn = json_decode($txnData, true);
 
-                if ($ispTxn["vnp_ResponseCode"] == 94) {
+                if ($ispTxn["vnp_ResponseCode"] == '00') {
                     $cancelResultMessage = 'Hủy đơn thành công. Quá trình hoàn tiền có thể cần thời gian để hoàn thành';
                 }
             }

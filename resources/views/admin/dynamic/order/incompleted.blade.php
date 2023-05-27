@@ -21,9 +21,9 @@
         <div class="card shadow mb-4">
             <div class="card-body">
 
-                @if (session('successMessage'))
-                    <div class="alert alert-success">
-                        {{ session('successMessage') }}
+                @if (session('cancelResultMessage'))
+                    <div class="alert alert-warning">
+                        {{ session('cancelResultMessage') }}
                     </div>
                 @endif
 

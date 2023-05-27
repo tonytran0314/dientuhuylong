@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Payment;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
 
 use App\Models\Order;
 use App\Models\ProductUser;
@@ -91,8 +92,6 @@ class VNPayController extends Controller
     }
 
     public function ipn() {
-                
-
         /* Payment Notify
         * IPN URL: Ghi nhận kết quả thanh toán từ VNPAY
         * Các bước thực hiện:
@@ -197,54 +196,5 @@ class VNPayController extends Controller
         }
         //Trả lại VNPAY theo định dạng JSON
         echo json_encode($returnData);
-		
-    }
-
-    public function return() {
-        $vnp_TmnCode = "VSEDH0S9";//Mã website tại VNPAY 
-        $vnp_HashSecret = "OUHPPOOKXFVQTAHRYUPIWVLYHPYUJSTY"; //Chuỗi bí mật
-        $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_Returnurl = "http://localhost/checkout/result";
-        $vnp_apiUrl = "http://sandbox.vnpayment.vn/merchant_webapi/merchant.html";
-        $apiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
-        //Config input format
-        //Expire
-        $startTime = date("YmdHis");
-        $expire = date('YmdHis',strtotime('+15 minutes',strtotime($startTime)));
-
-
-        $vnp_SecureHash = $_GET['vnp_SecureHash'];
-        $inputData = array();
-        foreach ($_GET as $key => $value) {
-            if (substr($key, 0, 4) == "vnp_") {
-                $inputData[$key] = $value;
-            }
-        }
-        
-        unset($inputData['vnp_SecureHash']);
-        ksort($inputData);
-        $i = 0;
-        $hashData = "";
-        foreach ($inputData as $key => $value) {
-            if ($i == 1) {
-                $hashData = $hashData . '&' . urlencode($key) . "=" . urlencode($value);
-            } else {
-                $hashData = $hashData . urlencode($key) . "=" . urlencode($value);
-                $i = 1;
-            }
-        }
-
-        $secureHash = hash_hmac('sha512', $hashData, $vnp_HashSecret);
-        if ($secureHash == $vnp_SecureHash) {
-            if ($_GET['vnp_ResponseCode'] == '00') {
-                echo "GD Thanh cong";
-            } 
-            else {
-                echo "GD Khong thanh cong";
-                }
-        } else {
-            echo "Chu ky khong hop le";
-        }
-		
     }
 }

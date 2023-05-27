@@ -20,7 +20,10 @@ class Order extends Model
         'order_time',
         'updated_at',
         'payment_method_id',
-        'payment_status_id'
+        'payment_status_id',
+        'phone_number',
+        'email',
+        'address'
     ];
 
     public $incrementing = false;

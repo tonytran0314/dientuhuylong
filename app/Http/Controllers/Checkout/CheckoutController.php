@@ -3,18 +3,20 @@
 namespace App\Http\Controllers\Checkout;
 
 use Illuminate\Support\Str;
+
+use App\Http\Controllers\Controller;
+
+use App\Http\Requests\CheckoutRequest;
+
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
 use App\Models\User;
+use App\Models\Order;
 use App\Models\TpTinh;
 use App\Models\ProductOrder;
-
-use App\Http\Requests\CheckoutRequest;
-use Illuminate\Support\Facades\Redirect;
 
 class CheckoutController extends Controller
 {
@@ -47,6 +49,14 @@ class CheckoutController extends Controller
 
         Session::put('uuid', $uuid);
         Session::put('Amount', $total_price);
+        Session::put('full_name', $request->fullname);
+        Session::put('email', $request->email);
+        Session::put('phone_number', $request->phone_number);
+        Session::put('ttp', $request->tp_tinh);
+        Session::put('qh', $request->quan_huyen);
+        Session::put('px', $request->phuong_xa);
+        Session::put('nr', $request->number_road);
+        Session::put('notes', $request->notes);
 
         foreach($productsInCart as $product) {
             ProductOrder::insert([
@@ -103,6 +113,7 @@ class CheckoutController extends Controller
             if ($secureHash == $vnp_SecureHash) {
                 if ($_GET['vnp_ResponseCode'] == '00') {
                     $paymentMessage = 'Giao dịch thành công';
+                    $this->send_email_after_ordering();
                 } else {
                     $paymentMessage = 'Giao dịch không thành công';
                 }
@@ -114,7 +125,35 @@ class CheckoutController extends Controller
                 'paymentMessage' => $paymentMessage
             ]);
         } else {
+            $this->send_email_after_ordering();
             return view('dynamic.checkout.result');
         }
+    }
+
+    public function send_email_after_ordering() {
+        
+        // order information
+        $order = Order::find(Session::get('uuid'));
+        
+        // client's email
+        $client_email = $order->email;
+
+        // send receipt to client email
+        Mail::send(
+            'dynamic.email.email', 
+            [
+                'name' => $order->user->name,
+                'phone_number' => $order->phone_number,
+                'address' => $order->address,
+                'total' => $order->Amount,
+                'prodsInCart' => $order->items_in_order,
+                'notes' => $order->notes,
+                
+            ], 
+            function($email) use ($client_email){
+                $email->subject('Điện tử Huy Long - Cám ơn bạn đã mua sắm cùng chúng tôi');
+                $email->to($client_email);
+            }
+        );
     }
 }

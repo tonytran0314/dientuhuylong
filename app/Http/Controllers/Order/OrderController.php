@@ -64,7 +64,7 @@ class OrderController extends Controller
      */
     public function destroy(Request $request)
     {   
-        $cancelResultMessage = 'Hủy đơn và hoàn tiền thất bại!';
+        $cancelResultMessage = 'Hủy đơn thành công. Quá trình hoàn tiền có thể cần thời gian để hoàn thành';
 
         // refund if paid by vnpay
         if ($request->payment_method_id == 14) { 
@@ -168,8 +168,8 @@ class OrderController extends Controller
                 $txnData = callAPI_auth("POST", $apiUrl, json_encode($ispTxnRequest));
                 $ispTxn = json_decode($txnData, true);
 
-                if ($ispTxn["vnp_ResponseCode"] == '00') {
-                    $cancelResultMessage = 'Hủy đơn thành công. Quá trình hoàn tiền có thể cần thời gian để hoàn thành';
+                if ($ispTxn["vnp_ResponseCode"] != '00') {
+                    $cancelResultMessage = 'Hủy đơn và hoàn tiền thất bại!';
                 }
             }
         }

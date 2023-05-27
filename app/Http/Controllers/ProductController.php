@@ -4,20 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Http\Requests\SearchRequest;
+
+use Illuminate\Support\Facades\Redirect;
+
 use App\Models\Product;
 use App\Models\Comment;
 use App\Models\Category;
-use App\Models\User;
-use App\Models\TpTinh;
-use App\Models\QuanHuyen;
-use App\Models\XaPhuongThitran;
-use App\Models\ProductUser;
-
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Redirect;
-
-use App\Http\Requests\SearchRequest;
 
 class ProductController extends Controller
 {
@@ -46,7 +39,6 @@ class ProductController extends Controller
             'relatedProductsCount' => $relatedProductsCount,
             'comments' => $comments
         ]);
-
     }
 
     public function byCate($cate_slug) {
@@ -71,64 +63,11 @@ class ProductController extends Controller
         ]);
     }
 
-    public function success_order($client_email) {
-        return view('dynamic.product.successOrder', ['client_email' => $client_email]);
-    }
-
-
     // ========================================= POST ========================================= //
 
     public function search(SearchRequest $request) {
         $request->validated($request->all());
 
         return Redirect::route('product.searchResult', $request->search_keyword);
-    }
-
-    public function checkoutProcess(Request $request) {
-        
-        $request->validated($request->all());
-
-        // variables assignment
-        $fullname = $request->fullname;
-        $client_email = $request->email;
-        $phone_number = $request->phone_number;
-
-        $tp_tinh = TpTinh::where('matp', $request->tp_tinh)->firstOrFail();
-        $quan_huyen = QuanHuyen::where('maqh', $request->quan_huyen)->firstOrFail();
-        $phuong_xa = XaPhuongThitran::where('xaid', $request->phuong_xa)->firstOrFail();
-        $number_road = $request->number_road;
-
-        $notes = $request->notes;
-
-        // items in cart 
-        $productsInCart = User::find(Auth::user()->id)->products;
-
-        $total_price = 0;
-        foreach($productsInCart as $product) {
-            $total_price += ($product->price * $product->pivot->quantity);
-        }
-
-        // send receipt to client email
-        Mail::send(
-            'dynamic.email.email', 
-            [
-                'name' => $fullname,
-                'ttp' => $tp_tinh,
-                'qh' => $quan_huyen,
-                'px' => $phuong_xa,
-                'nr' => $number_road,
-                'total' => $total_price,
-                'prodsInCart' => $productsInCart
-            ], 
-            function($email) use ($client_email){
-                $email->subject('Điện tử Huy Long - Cám ơn bạn đã mua sắm cùng chúng tôi');
-                $email->to($client_email);
-            }
-        );
-        
-        
-
-        return Redirect::route('product.success_order', $client_email);
-
     }
 }

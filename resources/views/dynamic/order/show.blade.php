@@ -105,6 +105,9 @@
                                     <form action="{{ route('order.destroy') }}" method="POST">
                                         @csrf
                                         <input type="hidden" name="order_id" value="{{ $detail->id }}">
+                                        <input type="hidden" name="payment_method_id" value="{{ $detail->payment_method_id }}">
+                                        <input type="hidden" name="Amount" value="{{ $detail->Amount }}">
+                                        <input type="hidden" name="order_time" value="{{ $detail->order_time }}">
                                         <button type="submit" class="btn btn-danger">Xác nhận hủy đơn hàng</button>
                                     </form>
                                 </div>

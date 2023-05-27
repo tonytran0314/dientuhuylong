@@ -14,8 +14,16 @@
                 </div>
             </div>
 
+            
+
+
             {{-- BODY  --}}
             <div id="product-tab">
+                @if (session('cancelResultMessage'))
+                    <div class="alert alert-warning">
+                        {{ session('cancelResultMessage') }}
+                    </div>
+                @endif
                 <!-- product tab nav -->
                 <ul class="tab-nav">
                     <li class="active"><a data-toggle="tab" href="#tab1">Đơn đang xử lý</a></li>

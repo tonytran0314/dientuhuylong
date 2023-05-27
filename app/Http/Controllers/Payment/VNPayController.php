@@ -201,8 +201,6 @@ class VNPayController extends Controller
     }
 
     public function return() {
-        
-        
         $vnp_TmnCode = "VSEDH0S9";//Mã website tại VNPAY 
         $vnp_HashSecret = "OUHPPOOKXFVQTAHRYUPIWVLYHPYUJSTY"; //Chuỗi bí mật
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";

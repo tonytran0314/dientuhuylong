@@ -113,7 +113,7 @@
                     </tr>
                     <tr>
                         <th>Địa chỉ giao hàng</th>
-                        <td>fjsdfhksjdhk</td>
+                        <td>{{ $detail->address }}</td>
                     </tr>
                 </table>
 

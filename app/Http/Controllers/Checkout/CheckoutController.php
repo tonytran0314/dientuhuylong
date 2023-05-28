@@ -78,7 +78,7 @@ class CheckoutController extends Controller
             $vnp_TmnCode = "VSEDH0S9";//Mã website tại VNPAY 
             $vnp_HashSecret = "OUHPPOOKXFVQTAHRYUPIWVLYHPYUJSTY"; //Chuỗi bí mật
             $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-            $vnp_Returnurl = "http://localhost/checkout/result";
+            $vnp_Returnurl = "https://dientuhuylong.com/checkout/result";
             $vnp_apiUrl = "http://sandbox.vnpayment.vn/merchant_webapi/merchant.html";
             $apiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
             //Config input format
